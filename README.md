@@ -1,0 +1,1 @@
+This is a game with the theme "Bubbles" to be made for the intake for the Game Programming study at the NHTV which I will hopefully start in September 2013.
