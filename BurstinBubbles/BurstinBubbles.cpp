@@ -1,11 +1,14 @@
 #include <SFML/Graphics.hpp>
 
 #include "stdafx.h"
+#include "Game.h"
 
 int main()
 {
-    sf::RenderWindow Window(sf::VideoMode(800, 600), "Bubble Bonanza");
-    
+    sf::RenderWindow Window(sf::VideoMode(1000, 600), "Bubble Bonanza");
+    sf::Clock deltaClock;
+	Game game;
+
     while (Window.isOpen())
     {
         sf::Event event;
@@ -15,7 +18,11 @@ int main()
                 Window.close();
         }
 
-		Window.clear(sf::Color::Blue);
+		sf::Time dt = deltaClock.restart();
+		float fDeltaTime = dt.asSeconds();
+
+		Window.clear(sf::Color::Black);
+		game.Update(fDeltaTime);
         Window.display();
     }
 
