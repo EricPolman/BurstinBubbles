@@ -1,6 +1,7 @@
-#include "GameObjectManager.h"
-
 #pragma once
+#include "GameObjectManager.h"
+#include "SFML/Graphics.hpp"
+
 class Scene
 {
 public:
@@ -10,5 +11,6 @@ public:
 	GameObjectManager m_GameObjectManager;
 	void Update(float);
 	void LoadFromFile(std::string);
+	void Draw(sf::RenderWindow*);
 };
 

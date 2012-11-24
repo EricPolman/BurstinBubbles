@@ -19,19 +19,22 @@ SceneManager::~SceneManager(void)
 
 void SceneManager::Update(float fDeltaTime)
 {
-	m_currentScene->Update(fDeltaTime);
-	std::cout << std::endl << "Frame updated. " << fDeltaTime;
+	m_currentScene.Update(fDeltaTime);
 }
 
 
 void SceneManager::LoadScene(std::string sFile)
 {
-	Scene scene;
-	scene.LoadFromFile(g_sRootPath + "\\" + sFile);
-	m_currentScene = &scene;
+	m_currentScene.LoadFromFile(g_sRootPath + "\\" + sFile);
 }
 
 
 void SceneManager::UnloadScene(void)
 {
+}
+
+
+void SceneManager::Draw(sf::RenderWindow *window)
+{
+	m_currentScene.Draw(window);
 }

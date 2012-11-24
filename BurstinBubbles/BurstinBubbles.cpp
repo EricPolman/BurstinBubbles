@@ -20,10 +20,14 @@ int main()
 
 		sf::Time dt = deltaClock.restart();
 		float fDeltaTime = dt.asSeconds();
-
+		
 		Window.clear(sf::Color::Black);
+        
+		game.Draw(&Window);
+
 		game.Update(fDeltaTime);
-        Window.display();
+
+		Window.display();
     }
 
     return 0;

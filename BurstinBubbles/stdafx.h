@@ -9,6 +9,7 @@
 #include <stdio.h>
 #include <iostream>
 #include <tchar.h>
+#define PI 3.14159265
 
 
 

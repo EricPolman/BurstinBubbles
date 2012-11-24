@@ -1,8 +1,9 @@
+#pragma once
 #include "Scene.h"
 #include <string>
-#include <list>
+#include <vector>
+#include "SFML/Graphics.hpp"
 
-#pragma once
 class SceneManager
 {
 public:
@@ -12,10 +13,11 @@ public:
 	void LoadScene(std::string);
 	void UnloadScene(void);
 	void Update(float);
+	void Draw(sf::RenderWindow*);
 
 private:
 	std::string g_sRootPath;
-	std::list<std::string> *m_loadableScenes;
-	Scene *m_currentScene;
+	std::vector<std::string> *m_loadableScenes;
+	Scene m_currentScene;
 };
 
