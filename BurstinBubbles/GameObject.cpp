@@ -1,5 +1,6 @@
 #include "StdAfx.h"
 #include "GameObject.h"
+#include "TextureManager.h"
 
 GameObject::GameObject(void)
 {
@@ -8,9 +9,7 @@ GameObject::GameObject(void)
 
 GameObject::GameObject(std::string imagePath)
 {
-	texture = new sf::Texture();
 	LoadFromPath(imagePath);
-	setOrigin(texture->getSize().x / 2, texture->getSize().y / 2);
 	m_fMaximumSpeed = 200;
 }
 
@@ -28,12 +27,8 @@ void GameObject::Update(float fDeltaTime)
 
 void GameObject::LoadFromPath(std::string imagePath)
 {
-	if(!texture->loadFromFile(imagePath))
-	{
-		std::cout << "Couldn't load " << imagePath;
-	}
-	setTexture(*texture);
-	setPosition(100, 25);
+	setTexture(TextureManager::getInstance()->m_Textures[imagePath]);
+	setOrigin(getTexture()->getSize().x / 2, getTexture()->getSize().y / 2);
 }
 
 

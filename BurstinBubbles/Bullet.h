@@ -6,5 +6,9 @@ class Bullet :
 public:
 	Bullet(void);
 	~Bullet(void);
+	sf::Vector2f m_direction;
+	float m_fSpeed;
+	float m_fBulletLifetime;
+	virtual void Update(float);
 };
 

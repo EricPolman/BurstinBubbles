@@ -14,6 +14,7 @@ public:
 	void Remove(GameObject*);
 	void Add(GameObject*);
 	void AddCollidable(GameObject*);
+	void AddPlayerBullet(Bullet*);
 	void AddPlayer(Player*);
 
 	void CenterPlayer(void);
@@ -21,5 +22,6 @@ private:
 	std::vector<GameObject> m_gameObjects;
 	std::vector<GameObject> m_collidableGameObjects;
 	std::vector<Player> m_Players;
+	std::vector<Bullet> m_PlayerBullets;
 };
 
