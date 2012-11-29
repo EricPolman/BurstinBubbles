@@ -12,5 +12,8 @@ public:
 	void Update(float);
 	void LoadFromFile(std::string);
 	void Draw(sf::RenderWindow*);
+
+private:
+	bool m_bCameraFollowsPlayer;
 };
 

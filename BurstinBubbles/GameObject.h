@@ -12,11 +12,12 @@ public:
 	bool m_bCanDie;
 	float m_fHealth;
 
-	void Update(float);
+	virtual void Update(float);
 	void LoadFromPath(std::string);
-	void Die(void);
-private:
+	virtual void Die(void);
+protected:
 	float m_fMaximumSpeed;
 	float m_fRotation;
+	sf::Texture *texture;
 };
 

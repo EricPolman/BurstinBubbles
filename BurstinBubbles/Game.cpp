@@ -12,6 +12,8 @@ float fDT = 0;
 
 Game::Game(void)
 {
+	//g_iWindowWidth = 100;
+	//g_iWindowHeight = 100;
 }
 
 
@@ -34,5 +36,8 @@ void Game::Update(float fDeltaTime)
 
 void Game::Draw(sf::RenderWindow* window)
 {
+	//g_iWindowWidth = window->getSize().x;
+	//g_iWindowHeight = window->getSize().y;
+
 	sceneManager.Draw(window);
 }
