@@ -13,11 +13,13 @@ public:
 	void Draw(sf::RenderWindow*);
 	void Remove(GameObject*);
 	void Add(GameObject*);
+	void AddCollidable(GameObject*);
 	void AddPlayer(Player*);
 
 	void CenterPlayer(void);
 private:
 	std::vector<GameObject> m_gameObjects;
+	std::vector<GameObject> m_collidableGameObjects;
 	std::vector<Player> m_Players;
 };
 

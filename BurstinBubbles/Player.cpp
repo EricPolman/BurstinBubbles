@@ -16,9 +16,9 @@ Player::Player(std::string imagePath)
 {
 	texture = new sf::Texture();
 	GameObject::LoadFromPath(imagePath);
-	setOrigin(texture->getSize().x / 2, texture->getSize().y / 2);
-	m_fMaximumSpeed = 200.0f;
-	std::cout << " " << texture->getSize().x << std::endl;
+	setTextureRect(sf::IntRect(0,0,100,100));
+	setOrigin(getTextureRect().width / 2, getTextureRect().height / 2);
+	m_fMaximumSpeed = 200.0;
 }
 
 
