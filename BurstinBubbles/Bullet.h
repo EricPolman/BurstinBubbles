@@ -10,5 +10,6 @@ public:
 	float m_fSpeed;
 	float m_fBulletLifetime;
 	virtual void Update(float);
+	virtual void Hit(GameObject* other);
 };
 

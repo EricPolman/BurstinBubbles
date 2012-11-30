@@ -13,8 +13,9 @@ public:
 
 	virtual void Update(float);
 	virtual void Shoot(void);
+	virtual void Hit(GameObject* other);
 	void LoadFromPath(std::string);
 	virtual void Die(void);
 
-	std::vector<Bullet> m_bullets;
+	std::vector<Bullet*> m_bullets;
 };

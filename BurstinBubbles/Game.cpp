@@ -29,7 +29,8 @@ void Game::Update(float fDeltaTime)
 	if(fTimer > fTIME)
 	{
 		sceneManager.Update(fTimer);
-		fTimer -= fTIME;
+		//std::cout << fTimer << std::endl;
+		fTimer = 0;
 	}
 }
 

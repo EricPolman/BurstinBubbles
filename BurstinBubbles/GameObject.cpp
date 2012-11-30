@@ -9,8 +9,12 @@ GameObject::GameObject(void)
 
 GameObject::GameObject(std::string imagePath)
 {
-	LoadFromPath(imagePath);
+	GameObject::LoadFromPath(imagePath);
 	m_fMaximumSpeed = 200;
+	m_bCanDie = false;
+	m_bIsDead = false;
+	m_bIsCollidable = true;
+	m_fHealth = 100;
 }
 
 
@@ -52,4 +56,10 @@ float GameObject::Distance(sf::Vector2f a, sf::Vector2f b)
 {
 	float result = std::sqrt((a.x - b.x) * (a.x - b.x) + (a.y - b.y) * (a.y - b.y));
 	return result;
+}
+
+
+void GameObject::Hit(GameObject* other)
+{
+
 }

@@ -2,7 +2,7 @@
 #include "Player.h"
 
 float shootTimer = 0;
-float SHOOT_TIME = 0.25f;
+float SHOOT_TIME = 0.2f;
 
 Player::Player(void)
 {
@@ -14,13 +14,11 @@ Player::~Player(void)
 }
 
 
-Player::Player(std::string imagePath)
+Player::Player(std::string imagePath) : GameObject(imagePath)
 {
-	texture = new sf::Texture();
-	GameObject::LoadFromPath(imagePath);
 	setTextureRect(sf::IntRect(0,0,100,100));
 	setOrigin(getTextureRect().width / 2, getTextureRect().height / 2);
-	m_fMaximumSpeed = 200.0;
+	m_fMaximumSpeed = 150.0f;
 }
 
 
@@ -33,11 +31,11 @@ void Player::Update(float fDeltaTime)
 
 	if(sf::Keyboard::isKeyPressed(sf::Keyboard::A))
 	{
-		rotate(-180 * fDeltaTime);
+		rotate(-135 * fDeltaTime);
 	}
 	if(sf::Keyboard::isKeyPressed(sf::Keyboard::D))
 	{
-		rotate(180 * fDeltaTime);
+		rotate(135 * fDeltaTime);
 	}
 	if(sf::Keyboard::isKeyPressed(sf::Keyboard::S))
 	{
@@ -56,7 +54,7 @@ void Player::Update(float fDeltaTime)
 		}
 	}
 
-	shootTimer+=fDeltaTime;
+	shootTimer += fDeltaTime;
 }
 
 
@@ -67,11 +65,20 @@ void Player::Die(void)
 
 void Player::Shoot(void)
 {
-	Bullet bullet;
-	bullet.m_direction = sf::Vector2f(std::cos(PI * (getRotation() - 90) / 180.0f), std::sin(PI * (getRotation() - 90) / 180.0f));
-	bullet.m_fSpeed = 500;
-	bullet.setPosition(getPosition() + bullet.m_direction);
-	bullet.LoadFromPath("bullet");
+	Bullet* bullet = new Bullet();
+	bullet->m_direction = sf::Vector2f(std::cos(PI * (getRotation() - 90) / 180.0f), std::sin(PI * (getRotation() - 90) / 180.0f));
+	bullet->setPosition(getPosition() + bullet->m_direction * (float)(getTextureRect().width / 2));
 
 	m_bullets.push_back(bullet);
+}
+
+
+void Player::Hit(GameObject* other)
+{
+	sf::Vector2f normalizedDir = getPosition() - other->getPosition();
+	float dist = Distance(getPosition(), other->getPosition());
+	normalizedDir.x /= dist;
+	normalizedDir.y /= dist;
+
+	move(normalizedDir * ((getTextureRect().width + other->getTextureRect().width) / 2 - dist));
 }
