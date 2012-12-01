@@ -8,6 +8,7 @@ class Player :
 {
 public:
 	Player(void);
+	Player(const Player&);
 	Player(std::string);
 	~Player(void);
 

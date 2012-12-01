@@ -47,8 +47,19 @@ GameObjectManager::GameObjectManager(void)
 }
 
 
+GameObjectManager::GameObjectManager(const GameObjectManager& other)
+{
+	m_gameObjects = other.m_gameObjects;
+	m_player = other.m_player;
+}
+
+
 GameObjectManager::~GameObjectManager(void)
 {
+	for(std::vector<GameObject*>::iterator i = m_gameObjects.begin(); i != m_gameObjects.end(); ++i )
+	{
+		delete *i;
+	}
 }
 
 
@@ -56,25 +67,34 @@ void GameObjectManager::Update(float fDeltaTime)
 {
 	for(std::vector<GameObject*>::iterator i = m_gameObjects.begin(); i != m_gameObjects.end(); ++i )
 	{
-		(*i)->Update(fDeltaTime);
+		if((*i) != NULL)
+			(*i)->Update(fDeltaTime);
 	}
 	
 	for(std::vector<GameObject*>::iterator j = m_gameObjects.begin(); j != m_gameObjects.end(); ++j )
 	{
-		for(std::vector<GameObject*>::iterator i = m_gameObjects.begin(); i != m_gameObjects.end(); ++i )
+		if((*j) != NULL)
 		{
-			if((*j)->m_bIsCollidable && (*i)->m_bIsCollidable && (*i)->isColliding(*j) && *i != *j)
+			for(std::vector<GameObject*>::iterator i = m_gameObjects.begin(); i != m_gameObjects.end(); ++i )
 			{
-				(*j)->Hit(*i);
-				(*i)->Hit(*j);
+				if((*i) != NULL)
+				{
+					if((*j)->m_bIsCollidable && (*i)->m_bIsCollidable && (*i)->isColliding(*j) && *i != *j)
+					{
+						(*j)->Hit(*i);
+						(*i)->Hit(*j);
+					}
+				}
 			}
 		}
 	}
 
 	for(std::vector<Bullet*>::iterator k = m_player->m_bullets.begin(); k != m_player->m_bullets.end(); ++k )
 	{
-		Add(*k);
+		if((*k) != NULL)
+			Add(*k);
 	}
+	m_player->m_bullets.clear();
 
 	std::vector<std::vector<GameObject*>::iterator> objectsToBeRemoved;
 	objectsToBeRemoved.clear();
@@ -88,7 +108,7 @@ void GameObjectManager::Update(float fDeltaTime)
 	}
 	for(std::vector<std::vector<GameObject*>::iterator>::iterator i = objectsToBeRemoved.begin(); i != objectsToBeRemoved.end(); ++i)
 	{
-		m_gameObjects.erase(*i);
+		//m_gameObjects.erase(*i);
 	}
 }
 
@@ -99,7 +119,7 @@ void GameObjectManager::CenterPlayer(void)
 
 	for(std::vector<GameObject*>::iterator i = m_gameObjects.begin(); i != m_gameObjects.end(); ++i )
 	{
-		if(m_player != *i)
+		if(*i != NULL && m_player != *i)
 			(*i)->move(translation);
 	}
 
@@ -112,7 +132,8 @@ void GameObjectManager::Draw(sf::RenderWindow *window)
 	//window->draw(player);
 	for(std::vector<GameObject*>::iterator i = m_gameObjects.begin(); i != m_gameObjects.end(); ++i )
 	{
-		window->draw(*(*i));	
+		if(!(*i)->m_bIsDead)
+			window->draw(*(*i));	
 	}	
 }
 

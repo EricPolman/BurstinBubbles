@@ -14,6 +14,15 @@ Player::~Player(void)
 }
 
 
+Player::Player(const Player& player) : GameObject("player")
+{
+	m_bullets = player.m_bullets;
+	setTextureRect(sf::IntRect(0,0,100,100));
+	setOrigin(getTextureRect().width / 2, getTextureRect().height / 2);
+	m_fMaximumSpeed = 150.0f;
+}
+
+
 Player::Player(std::string imagePath) : GameObject(imagePath)
 {
 	setTextureRect(sf::IntRect(0,0,100,100));
@@ -24,8 +33,6 @@ Player::Player(std::string imagePath) : GameObject(imagePath)
 
 void Player::Update(float fDeltaTime)
 {
-	m_bullets.clear();
-
 	GameObject::Update(fDeltaTime);
 	sf::Vector2f direction(std::cos(PI * (getRotation() - 90) / 180.0f), std::sin(PI * (getRotation() - 90) / 180.0f));
 
@@ -53,7 +60,6 @@ void Player::Update(float fDeltaTime)
 			Shoot();
 		}
 	}
-
 	shootTimer += fDeltaTime;
 }
 

@@ -12,4 +12,3 @@ public:
 	virtual void Update(float);
 	virtual void Hit(GameObject* other);
 };
-

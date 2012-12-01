@@ -8,7 +8,9 @@ class GameObjectManager
 {
 public:
 	GameObjectManager(void);
+	GameObjectManager(const GameObjectManager&);
 	~GameObjectManager(void);
+
 	void Update(float);
 	void Draw(sf::RenderWindow*);
 	void Remove(GameObject*);
