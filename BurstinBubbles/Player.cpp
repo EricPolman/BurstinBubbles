@@ -2,7 +2,7 @@
 #include "Player.h"
 
 float shootTimer = 0;
-float SHOOT_TIME = 0.2f;
+float SHOOT_TIME = 0.1f;
 
 Player::Player(void)
 {
@@ -19,7 +19,7 @@ Player::Player(const Player& player) : GameObject("player")
 	m_bullets = player.m_bullets;
 	setTextureRect(sf::IntRect(0,0,100,100));
 	setOrigin(getTextureRect().width / 2, getTextureRect().height / 2);
-	m_fMaximumSpeed = 150.0f;
+	m_fMaximumSpeed = 300.0f;
 }
 
 
@@ -27,7 +27,7 @@ Player::Player(std::string imagePath) : GameObject(imagePath)
 {
 	setTextureRect(sf::IntRect(0,0,100,100));
 	setOrigin(getTextureRect().width / 2, getTextureRect().height / 2);
-	m_fMaximumSpeed = 150.0f;
+	m_fMaximumSpeed = 230.0f;
 }
 
 
@@ -38,11 +38,11 @@ void Player::Update(float fDeltaTime)
 
 	if(sf::Keyboard::isKeyPressed(sf::Keyboard::A))
 	{
-		rotate(-135 * fDeltaTime);
+		rotate(-180 * fDeltaTime);
 	}
 	if(sf::Keyboard::isKeyPressed(sf::Keyboard::D))
 	{
-		rotate(135 * fDeltaTime);
+		rotate(180 * fDeltaTime);
 	}
 	if(sf::Keyboard::isKeyPressed(sf::Keyboard::S))
 	{

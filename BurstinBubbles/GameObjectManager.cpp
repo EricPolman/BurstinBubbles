@@ -65,12 +65,6 @@ GameObjectManager::~GameObjectManager(void)
 
 void GameObjectManager::Update(float fDeltaTime)
 {
-	for(std::vector<GameObject*>::iterator i = m_gameObjects.begin(); i != m_gameObjects.end(); ++i )
-	{
-		if((*i) != NULL)
-			(*i)->Update(fDeltaTime);
-	}
-	
 	for(std::vector<GameObject*>::iterator j = m_gameObjects.begin(); j != m_gameObjects.end(); ++j )
 	{
 		if((*j) != NULL)
@@ -96,19 +90,13 @@ void GameObjectManager::Update(float fDeltaTime)
 	}
 	m_player->m_bullets.clear();
 
-	std::vector<std::vector<GameObject*>::iterator> objectsToBeRemoved;
-	objectsToBeRemoved.clear();
 	for(std::vector<GameObject*>::iterator i = m_gameObjects.begin(); i != m_gameObjects.end(); ++i )
 	{
 		(*i)->Update(fDeltaTime);
 		if((*i)->m_bIsDead)
 		{
-			objectsToBeRemoved.push_back(i);
+			m_gameObjects.erase(i--);
 		}
-	}
-	for(std::vector<std::vector<GameObject*>::iterator>::iterator i = objectsToBeRemoved.begin(); i != objectsToBeRemoved.end(); ++i)
-	{
-		//m_gameObjects.erase(*i);
 	}
 }
 
