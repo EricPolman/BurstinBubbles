@@ -117,7 +117,8 @@ void GameObjectManager::CenterPlayer(void)
 
 void GameObjectManager::Draw(sf::RenderWindow *window)
 {
-	//window->draw(player);
+	m_player->UpdateMouse(*window);
+
 	for(std::vector<GameObject*>::iterator i = m_gameObjects.begin(); i != m_gameObjects.end(); ++i )
 	{
 		if(!(*i)->m_bIsDead)

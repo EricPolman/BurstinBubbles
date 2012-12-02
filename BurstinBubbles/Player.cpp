@@ -17,40 +17,65 @@ Player::~Player(void)
 Player::Player(const Player& player) : GameObject("player")
 {
 	m_bullets = player.m_bullets;
-	setTextureRect(sf::IntRect(0,0,100,100));
-	setOrigin(getTextureRect().width / 2, getTextureRect().height / 2);
-	m_fMaximumSpeed = 300.0f;
+	Init();
 }
 
 
 Player::Player(std::string imagePath) : GameObject(imagePath)
 {
+	Init();
+}
+
+void Player::Init()
+{
 	setTextureRect(sf::IntRect(0,0,100,100));
 	setOrigin(getTextureRect().width / 2, getTextureRect().height / 2);
-	m_fMaximumSpeed = 230.0f;
+	m_fMaximumSpeed = 300.0f;
+	m_mousePosition.x = 10;
+	m_mousePosition.y = 10;
+}
+
+
+void Player::UpdateMouse(sf::RenderWindow& Window)
+{
+	m_mousePosition = sf::Mouse::getPosition(Window);
 }
 
 
 void Player::Update(float fDeltaTime)
 {
 	GameObject::Update(fDeltaTime);
+
+	sf::Vector2f dir(sf::Vector2f(m_mousePosition.x,m_mousePosition.y) - getPosition());
+	float mag = Distance(sf::Vector2f(m_mousePosition.x,m_mousePosition.y), getPosition());
+	dir.x /= mag;
+	dir.y /= mag;
+	std::cout << asinf(dir.x) * 180 / PI << std::endl;
+	float newRot = asinf(dir.x) * 180 / PI;
+	if(dir.y >0)
+	{	
+		newRot = 180 - newRot;
+	}
+	
+	setRotation(newRot);
 	sf::Vector2f direction(std::cos(PI * (getRotation() - 90) / 180.0f), std::sin(PI * (getRotation() - 90) / 180.0f));
+	
 
 	if(sf::Keyboard::isKeyPressed(sf::Keyboard::A))
 	{
-		rotate(-180 * fDeltaTime);
+		move(fDeltaTime * m_fMaximumSpeed, 0);
 	}
 	if(sf::Keyboard::isKeyPressed(sf::Keyboard::D))
 	{
-		rotate(180 * fDeltaTime);
+		move(-fDeltaTime * m_fMaximumSpeed, 0);
 	}
 	if(sf::Keyboard::isKeyPressed(sf::Keyboard::S))
 	{
-		move(-direction * fDeltaTime * m_fMaximumSpeed * 0.5f); 
+		move(0, -fDeltaTime * m_fMaximumSpeed); 
 	}
 	if(sf::Keyboard::isKeyPressed(sf::Keyboard::W))
 	{
-		move(direction * fDeltaTime * m_fMaximumSpeed);
+		move(0, -fDeltaTime * m_fMaximumSpeed);
 	}
 	if(sf::Keyboard::isKeyPressed(sf::Keyboard::Space))
 	{
