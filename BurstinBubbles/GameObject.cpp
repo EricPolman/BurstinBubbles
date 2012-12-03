@@ -63,3 +63,9 @@ void GameObject::Hit(GameObject* other)
 {
 
 }
+
+
+std::string GameObject::GetType(void)
+{
+	return "GameObject";
+}

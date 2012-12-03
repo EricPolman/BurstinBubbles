@@ -12,6 +12,8 @@ public:
 	Player(std::string);
 	~Player(void);
 
+	virtual std::string GetType(void);
+
 	void UpdateMouse(sf::RenderWindow&);
 	sf::Vector2i m_mousePosition;
 	virtual void Update(float);

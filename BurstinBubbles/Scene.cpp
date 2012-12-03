@@ -14,11 +14,11 @@ Scene::~Scene(void)
 
 void Scene::Update(float fDeltaTime)
 {
+	m_GameObjectManager.Update(fDeltaTime);
 	if(m_bCameraFollowsPlayer)
 	{
 		m_GameObjectManager.CenterPlayer();
 	}
-	m_GameObjectManager.Update(fDeltaTime);
 }
 
 

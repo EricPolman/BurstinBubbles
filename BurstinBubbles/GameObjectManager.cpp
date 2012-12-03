@@ -2,6 +2,7 @@
 #include "GameObjectManager.h"
 #include "TextureManager.h"
 #include "Game.h"
+#include "Enemy.h"
 
 
 GameObjectManager::GameObjectManager(void)
@@ -40,10 +41,22 @@ GameObjectManager::GameObjectManager(void)
 	Player* player = new Player("player");
 	Add(player);
 	m_player = player; 
+	Enemy::g_player = player;
 
 	sf::Texture tex4;
 	tex4.loadFromFile("D:/Dropbox/NHTV/Intake/BurstinBubbles/BurstinBubbles/Data/Sprites/bullet.png");
 	TextureManager::getInstance()->m_Textures["bullet"] = tex4;
+
+	sf::Texture tex5;
+	tex5.loadFromFile("D:/Dropbox/NHTV/Intake/BurstinBubbles/BurstinBubbles/Data/Sprites/enemy.png");
+	TextureManager::getInstance()->m_Textures["enemy"] = tex5;
+	
+	for(int i = 0; i < 10; i++)
+	{
+		Enemy* enemy = new Enemy();
+		enemy->move(100 + 100 * i,0);
+		Add(enemy);
+	}
 }
 
 

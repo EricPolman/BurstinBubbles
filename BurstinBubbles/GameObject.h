@@ -9,6 +9,8 @@ public:
 	GameObject(std::string);
 	virtual ~GameObject(void);
 
+	virtual std::string GetType(void);
+
 	bool m_bCanDie;
 	bool m_bIsDead;
 	bool m_bIsCollidable;

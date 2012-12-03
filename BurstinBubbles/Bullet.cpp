@@ -28,3 +28,9 @@ void Bullet::Hit(GameObject* other)
 {
 	m_bIsDead = true;
 }
+
+
+std::string Bullet::GetType(void)
+{
+	return "Bullet";
+}

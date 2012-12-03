@@ -28,9 +28,9 @@ Player::Player(std::string imagePath) : GameObject(imagePath)
 
 void Player::Init()
 {
-	setTextureRect(sf::IntRect(0,0,100,100));
+	setTextureRect(sf::IntRect(0,0,50,50));
 	setOrigin(getTextureRect().width / 2, getTextureRect().height / 2);
-	m_fMaximumSpeed = 300.0f;
+	m_fMaximumSpeed = 200.0f;
 	m_mousePosition.x = 10;
 	m_mousePosition.y = 10;
 }
@@ -50,7 +50,6 @@ void Player::Update(float fDeltaTime)
 	float mag = Distance(sf::Vector2f(m_mousePosition.x,m_mousePosition.y), getPosition());
 	dir.x /= mag;
 	dir.y /= mag;
-	std::cout << asinf(dir.x) * 180 / PI << std::endl;
 	float newRot = asinf(dir.x) * 180 / PI;
 	if(dir.y >0)
 	{	
@@ -58,26 +57,35 @@ void Player::Update(float fDeltaTime)
 	}
 	
 	setRotation(newRot);
-	sf::Vector2f direction(std::cos(PI * (getRotation() - 90) / 180.0f), std::sin(PI * (getRotation() - 90) / 180.0f));
 	
+	sf::Vector2f moveDir(0,0);
 
 	if(sf::Keyboard::isKeyPressed(sf::Keyboard::A))
 	{
-		move(fDeltaTime * m_fMaximumSpeed, 0);
+		moveDir.x += 1;
 	}
 	if(sf::Keyboard::isKeyPressed(sf::Keyboard::D))
 	{
-		move(-fDeltaTime * m_fMaximumSpeed, 0);
+		moveDir.x -= 1;
 	}
 	if(sf::Keyboard::isKeyPressed(sf::Keyboard::S))
 	{
-		move(0, -fDeltaTime * m_fMaximumSpeed); 
+		moveDir.y -= 1;
 	}
 	if(sf::Keyboard::isKeyPressed(sf::Keyboard::W))
 	{
-		move(0, -fDeltaTime * m_fMaximumSpeed);
+		moveDir.y += 1;
 	}
-	if(sf::Keyboard::isKeyPressed(sf::Keyboard::Space))
+	if(moveDir.x != 0 && moveDir.y != 0)
+	{
+		float magMove = Distance(sf::Vector2f(0,0), moveDir);
+		moveDir.x /= magMove;
+		moveDir.y /= magMove;
+	}
+
+	move(-fDeltaTime * m_fMaximumSpeed * moveDir);
+
+	if(sf::Mouse::isButtonPressed(sf::Mouse::Button::Left))
 	{
 		if(shootTimer > SHOOT_TIME)
 		{
@@ -99,7 +107,7 @@ void Player::Shoot(void)
 	Bullet* bullet = new Bullet();
 	bullet->m_direction = sf::Vector2f(std::cos(PI * (getRotation() - 90) / 180.0f), std::sin(PI * (getRotation() - 90) / 180.0f));
 	bullet->setPosition(getPosition() + bullet->m_direction * (float)(getTextureRect().width / 2));
-
+	bullet->m_owner = this;
 	m_bullets.push_back(bullet);
 }
 
@@ -112,4 +120,10 @@ void Player::Hit(GameObject* other)
 	normalizedDir.y /= dist;
 
 	move(normalizedDir * ((getTextureRect().width + other->getTextureRect().width) / 2 - dist));
+}
+
+
+std::string Player::GetType(void)
+{
+	return "Player";
 }
