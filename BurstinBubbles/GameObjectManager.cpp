@@ -7,6 +7,7 @@
 
 GameObjectManager::GameObjectManager(void)
 {
+	m_gameObjects.reserve(200);
 	sf::Texture tex1;
 	tex1.loadFromFile("D:/Dropbox/NHTV/Intake/BurstinBubbles/BurstinBubbles/Data/Sprites/testing_ground.png");
 	TextureManager::getInstance()->m_Textures["testing_ground"] = tex1;
@@ -18,21 +19,15 @@ GameObjectManager::GameObjectManager(void)
 	tex2.loadFromFile("D:/Dropbox/NHTV/Intake/BurstinBubbles/BurstinBubbles/Data/Sprites/barrel.png");
 	TextureManager::getInstance()->m_Textures["barrel"] = tex2;
 	
-	GameObject* barrel = new GameObject("barrel");
-	barrel->move(200,200);
-	Add(barrel);
-
-	GameObject* barrel2 = new GameObject("barrel");
-	barrel2->move(-200,200);
-	Add(barrel2);
-
-	GameObject* barrel3 = new GameObject("barrel");
-	barrel3->move(-200,-200);
-	Add(barrel3);
-
-	GameObject* barrel4 = new GameObject("barrel");
-	barrel4->move(200,-200);
-	Add(barrel4);
+	for(int i = 0; i < 6; i++)
+	{
+		GameObject* barrel = new GameObject("barrel");
+		float degree = (60 * i) * PI / 180;
+		sf::Vector2f newPos(cos(degree), sin(degree));
+		
+		barrel->move(newPos * 100.0f);
+		Add(barrel);
+	}
 
 	sf::Texture tex3;
 	tex3.loadFromFile("D:/Dropbox/NHTV/Intake/BurstinBubbles/BurstinBubbles/Data/Sprites/player.png");
@@ -51,10 +46,13 @@ GameObjectManager::GameObjectManager(void)
 	tex5.loadFromFile("D:/Dropbox/NHTV/Intake/BurstinBubbles/BurstinBubbles/Data/Sprites/enemy.png");
 	TextureManager::getInstance()->m_Textures["enemy"] = tex5;
 	
-	for(int i = 0; i < 10; i++)
+	for(int i = 0; i < 20; i++)
 	{
 		Enemy* enemy = new Enemy();
-		enemy->move(100 + 100 * i,0);
+		float degree = (18 * i) * PI / 180;
+		sf::Vector2f newPos(cos(degree), sin(degree));
+
+		enemy->move(newPos * 400.0f);
 		Add(enemy);
 	}
 }
@@ -63,6 +61,7 @@ GameObjectManager::GameObjectManager(void)
 GameObjectManager::GameObjectManager(const GameObjectManager& other)
 {
 	m_gameObjects = other.m_gameObjects;
+	m_gameObjects.reserve(other.m_gameObjects.size() * 2);
 	m_player = other.m_player;
 }
 
@@ -96,6 +95,19 @@ void GameObjectManager::Update(float fDeltaTime)
 		}
 	}
 
+	for(std::vector<GameObject*>::iterator i = m_gameObjects.begin(); i != m_gameObjects.end(); ++i )
+	{
+		if((*i)->GetType() == "Enemy")
+		{
+			for(std::vector<Bullet*>::iterator k = ((Enemy*)(*i))->m_bullets.begin(); k != ((Enemy*)(*i))->m_bullets.end(); ++k )
+			{
+				if((*k) != NULL)
+					Add((GameObject*)*k);
+			}
+			((Enemy*)(*i))->m_bullets.clear();
+		}
+	}
+	std::cout << std::endl;
 	for(std::vector<Bullet*>::iterator k = m_player->m_bullets.begin(); k != m_player->m_bullets.end(); ++k )
 	{
 		if((*k) != NULL)
@@ -106,6 +118,10 @@ void GameObjectManager::Update(float fDeltaTime)
 	for(std::vector<GameObject*>::iterator i = m_gameObjects.begin(); i != m_gameObjects.end(); ++i )
 	{
 		(*i)->Update(fDeltaTime);
+		if((*i)->GetType() == "Enemy")
+		{
+			//((Enemy*)(*i))->m_bullets.clear();
+		}
 		if((*i)->m_bIsDead)
 		{
 			m_gameObjects.erase(i--);

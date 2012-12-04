@@ -10,7 +10,7 @@ GameObject::GameObject(void)
 GameObject::GameObject(std::string imagePath)
 {
 	GameObject::LoadFromPath(imagePath);
-	m_fMaximumSpeed = 200;
+	m_fMaximumSpeed = 250;
 	m_bCanDie = false;
 	m_bIsDead = false;
 	m_bIsCollidable = true;
@@ -69,3 +69,19 @@ std::string GameObject::GetType(void)
 {
 	return "GameObject";
 }
+
+
+sf::Vector2f GameObject::NormalizeVector(sf::Vector2f vec)
+{
+	float mag = Distance(sf::Vector2f(0,0), vec);
+	return sf::Vector2f(vec.x / mag, vec.y / mag);
+}
+
+
+sf::Vector2f GameObject::LerpVector(sf::Vector2f a, sf::Vector2f b, float amount)
+{
+	sf::Vector2f diff = b - a;
+	return a + diff * amount;
+}
+
+

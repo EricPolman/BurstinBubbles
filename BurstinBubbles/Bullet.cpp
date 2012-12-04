@@ -10,6 +10,11 @@ Bullet::Bullet(void) : GameObject("bullet")
 }
 
 
+Bullet::Bullet(const Bullet&) : GameObject("bullet")
+{
+}
+
+
 Bullet::~Bullet(void)
 {
 }
@@ -26,7 +31,10 @@ void Bullet::Update(float fDeltaTime)
 
 void Bullet::Hit(GameObject* other)
 {
-	m_bIsDead = true;
+	if(other != m_owner)
+	{
+		m_bIsDead = true;
+	}
 }
 
 

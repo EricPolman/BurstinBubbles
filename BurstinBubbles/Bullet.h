@@ -5,6 +5,8 @@ class Bullet :
 {
 public:
 	Bullet(void);
+	Bullet(const Bullet&);
+
 	~Bullet(void);
 	virtual std::string GetType(void);
 

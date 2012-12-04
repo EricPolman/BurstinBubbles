@@ -24,6 +24,8 @@ public:
 	void LoadFromPath(std::string);
 	
 	float Distance(sf::Vector2f, sf::Vector2f);
+	sf::Vector2f NormalizeVector(sf::Vector2f);
+	sf::Vector2f LerpVector(sf::Vector2f, sf::Vector2f, float);
 
 protected:
 	float m_fMaximumSpeed;

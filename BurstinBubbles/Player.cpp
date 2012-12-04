@@ -47,9 +47,8 @@ void Player::Update(float fDeltaTime)
 	GameObject::Update(fDeltaTime);
 
 	sf::Vector2f dir(sf::Vector2f(m_mousePosition.x,m_mousePosition.y) - getPosition());
-	float mag = Distance(sf::Vector2f(m_mousePosition.x,m_mousePosition.y), getPosition());
-	dir.x /= mag;
-	dir.y /= mag;
+	dir = NormalizeVector(dir);
+
 	float newRot = asinf(dir.x) * 180 / PI;
 	if(dir.y >0)
 	{	
@@ -116,8 +115,7 @@ void Player::Hit(GameObject* other)
 {
 	sf::Vector2f normalizedDir = getPosition() - other->getPosition();
 	float dist = Distance(getPosition(), other->getPosition());
-	normalizedDir.x /= dist;
-	normalizedDir.y /= dist;
+	normalizedDir = NormalizeVector(normalizedDir);
 
 	move(normalizedDir * ((getTextureRect().width + other->getTextureRect().width) / 2 - dist));
 }
