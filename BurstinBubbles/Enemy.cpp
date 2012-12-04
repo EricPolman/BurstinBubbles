@@ -86,7 +86,7 @@ void Enemy::Shoot(void)
 {
 	Bullet* bullet = new Bullet();
 	bullet->m_direction = sf::Vector2f(std::cos(PI * (getRotation() - 90) / 180.0f), std::sin(PI * (getRotation() - 90) / 180.0f));
-	bullet->setPosition(getPosition() + bullet->m_direction * (float)(getTextureRect().width / 2) * 2.0f);
+	bullet->setPosition(getPosition() + bullet->m_direction * (float)(getTextureRect().width / 2));
 	bullet->m_owner = this;
 	m_bullets.push_back(bullet);
 }

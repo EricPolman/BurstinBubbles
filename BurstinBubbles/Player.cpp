@@ -33,6 +33,7 @@ void Player::Init()
 	m_fMaximumSpeed = 200.0f;
 	m_mousePosition.x = 10;
 	m_mousePosition.y = 10;
+	m_bIsDead = false;
 }
 
 
@@ -93,11 +94,17 @@ void Player::Update(float fDeltaTime)
 		}
 	}
 	shootTimer += fDeltaTime;
+
+	if(m_fHealth < 1)
+	{
+		Die();
+	}
 }
 
 
 void Player::Die(void)
 {
+	m_bIsDead = true;
 }
 
 
@@ -118,6 +125,11 @@ void Player::Hit(GameObject* other)
 	normalizedDir = NormalizeVector(normalizedDir);
 
 	move(normalizedDir * ((getTextureRect().width + other->getTextureRect().width) / 2 - dist));
+
+	if(other->GetType() == "Bullet" && ((Bullet*)other)->m_owner != this)
+	{
+		m_fHealth -= 3;
+	}
 }
 
 

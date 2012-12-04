@@ -7,44 +7,43 @@
 
 GameObjectManager::GameObjectManager(void)
 {
+	m_gameObjects.clear();
 	m_gameObjects.reserve(200);
-	sf::Texture tex1;
-	tex1.loadFromFile("D:/Dropbox/NHTV/Intake/BurstinBubbles/BurstinBubbles/Data/Sprites/testing_ground.png");
-	TextureManager::getInstance()->m_Textures["testing_ground"] = tex1;
 	GameObject* testingGrounds = new GameObject("testing_ground");
 	testingGrounds->m_bIsCollidable = false;
 	Add(testingGrounds); 
 	
-	sf::Texture tex2;
-	tex2.loadFromFile("D:/Dropbox/NHTV/Intake/BurstinBubbles/BurstinBubbles/Data/Sprites/barrel.png");
-	TextureManager::getInstance()->m_Textures["barrel"] = tex2;
 	
 	for(int i = 0; i < 6; i++)
 	{
 		GameObject* barrel = new GameObject("barrel");
-		float degree = (60 * i) * PI / 180;
-		sf::Vector2f newPos(cos(degree), sin(degree));
 		
-		barrel->move(newPos * 100.0f);
+		barrel->move(-300 + i * 100.0f, -50);
 		Add(barrel);
 	}
-
-	sf::Texture tex3;
-	tex3.loadFromFile("D:/Dropbox/NHTV/Intake/BurstinBubbles/BurstinBubbles/Data/Sprites/player.png");
-	TextureManager::getInstance()->m_Textures["player"] = tex3;
+	for(int i = 0; i < 6; i++)
+	{
+		GameObject* tree = new GameObject("tree");
+		
+		tree->move(-150 - 150 * i, 110);
+		Add(tree);
+	}
+	for(int i = 0; i < 5; i++)
+	{
+		GameObject* tree = new GameObject("tree");
+		
+		tree->move(-150, 110 + 150 + 150 * i);
+		Add(tree);
+	}
+	GameObject* pond = new GameObject("pond");
+	pond->move(-400, 400);
+	Add(pond);
 	
 	Player* player = new Player("player");
 	Add(player);
 	m_player = player; 
 	Enemy::g_player = player;
 
-	sf::Texture tex4;
-	tex4.loadFromFile("D:/Dropbox/NHTV/Intake/BurstinBubbles/BurstinBubbles/Data/Sprites/bullet.png");
-	TextureManager::getInstance()->m_Textures["bullet"] = tex4;
-
-	sf::Texture tex5;
-	tex5.loadFromFile("D:/Dropbox/NHTV/Intake/BurstinBubbles/BurstinBubbles/Data/Sprites/enemy.png");
-	TextureManager::getInstance()->m_Textures["enemy"] = tex5;
 	
 	for(int i = 0; i < 20; i++)
 	{
@@ -52,7 +51,7 @@ GameObjectManager::GameObjectManager(void)
 		float degree = (18 * i) * PI / 180;
 		sf::Vector2f newPos(cos(degree), sin(degree));
 
-		enemy->move(newPos * 400.0f);
+		enemy->move(newPos * 800.0f);
 		Add(enemy);
 	}
 }
@@ -107,7 +106,6 @@ void GameObjectManager::Update(float fDeltaTime)
 			((Enemy*)(*i))->m_bullets.clear();
 		}
 	}
-	std::cout << std::endl;
 	for(std::vector<Bullet*>::iterator k = m_player->m_bullets.begin(); k != m_player->m_bullets.end(); ++k )
 	{
 		if((*k) != NULL)

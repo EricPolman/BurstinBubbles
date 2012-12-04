@@ -15,10 +15,10 @@ public:
 	void Draw(sf::RenderWindow*);
 	void Remove(GameObject*);
 	void Add(GameObject*);
-
+	Player* m_player;
 	void CenterPlayer(void);
 private:
 	std::vector<GameObject*> m_gameObjects;
-	Player* m_player;
+	
 };
 

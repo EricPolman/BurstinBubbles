@@ -9,8 +9,8 @@ class TextureManager
 public:
 	~TextureManager(void);
 	static TextureManager* getInstance(void);
-
-	std::map<std::string, sf::Texture> m_Textures;
+	void LoadTextures(void);
+	std::map<std::string, sf::Texture*> m_Textures;
 
 private:
 	static bool instanceFlag;

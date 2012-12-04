@@ -31,7 +31,7 @@ void GameObject::Update(float fDeltaTime)
 
 void GameObject::LoadFromPath(std::string imagePath)
 {
-	setTexture(TextureManager::getInstance()->m_Textures[imagePath]);
+	setTexture(*TextureManager::getInstance()->m_Textures[imagePath]);
 	setOrigin(getTexture()->getSize().x / 2, getTexture()->getSize().y / 2);
 }
 
