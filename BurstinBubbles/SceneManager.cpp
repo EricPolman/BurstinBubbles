@@ -4,7 +4,7 @@
 #include <direct.h>
 #include "TextureManager.h"
 
-float fRESTART_TIME = 3;
+float fRESTART_TIME = 4;
 
 SceneManager::SceneManager(void)
 {

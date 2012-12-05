@@ -163,7 +163,7 @@ void Player::Hit(GameObject* other)
 	}
 	if(other->GetType() == "Bullet" && ((Bullet*)other)->m_owner != this)
 	{
-		m_fHealth -= 3;
+		m_fHealth -= 5;
 	}
 }
 

@@ -51,7 +51,7 @@ GameObjectManager::GameObjectManager(void)
 	for(int i = 0; i < Enemy::fMAX_ACTIVE_ENEMIES / 2; i++)
 	{
 		Enemy* enemy = new Enemy();
-		float degree = ((360/ Enemy::fMAX_ACTIVE_ENEMIES) * i) * PI / 180;
+		float degree = ((360/ Enemy::fMAX_ACTIVE_ENEMIES / 2) * i) * PI / 180;
 		sf::Vector2f newPos(cos(degree), sin(degree));
 
 		enemy->move(newPos * 800.0f);
