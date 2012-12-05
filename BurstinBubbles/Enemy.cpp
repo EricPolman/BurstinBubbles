@@ -4,21 +4,35 @@
 
 Player* Enemy::g_player;
 float fSHOOT_TIME = 1.0f;
+float Enemy::fCurrentEnemies = 0;
+float Enemy::fMAX_ENEMIES = 10;
 
 Enemy::Enemy(void) : GameObject("enemy")
 {
-
+	Enemy::fCurrentEnemies++;
+	delete m_collider;
+	m_collider = new Collider(&(getPosition()), getTextureRect().width / 2.0f);
 }
 
 
 Enemy::Enemy(const Enemy& enemy) : GameObject("enemy")
 {
+	Enemy::fCurrentEnemies++;
 	m_bullets = enemy.m_bullets;
+	delete m_collider;
+	m_collider = new Collider(&(getPosition()), getTextureRect().width / 2.0f);
 }
 
 
 Enemy::~Enemy(void)
 {
+}
+
+
+void Enemy::Die(void)
+{
+	Enemy::fCurrentEnemies--;
+	std::cout << fCurrentEnemies << " enemies left." << std::endl;
 }
 
 
@@ -63,20 +77,48 @@ void Enemy::Update(float fDeltaTime)
 
 void Enemy::Hit(GameObject* other)
 {
-	if(!other->m_bIsDead)
+	if(other->m_collider->IsCircular)
 	{
 		sf::Vector2f normalizedDir = getPosition() - other->getPosition();
 		float dist = Distance(getPosition(), other->getPosition());
 		normalizedDir = NormalizeVector(normalizedDir);
-
-		move(normalizedDir * ((getTextureRect().width + other->getTextureRect().width) / 2 - dist) * 0.5f);
-
-		if(other->GetType() == "Bullet")
+		
+		move(normalizedDir * ((getTextureRect().width + other->getTextureRect().width) / 2.0f - dist));
+	}
+	else
+	{
+		if(getPosition().x < other->getPosition().x - other->getTextureRect().width / 2)
 		{
-			if(((Bullet*)(other))->m_owner != this)
-			{
-				m_fHealth -= 10;
-			}
+			float ownX = getPosition().x + m_collider->m_fRadius;
+			float otherX = other->getPosition().x - other->getTextureRect().width / 2;
+			move(otherX - ownX,0);
+		}
+		else if(getPosition().x > other->getPosition().x + other->getTextureRect().width / 2)
+		{
+			float ownX = getPosition().x - m_collider->m_fRadius;
+			float otherX = other->getPosition().x + other->getTextureRect().width / 2;
+			move(otherX - ownX,0);
+		}
+
+		if(getPosition().y < other->getPosition().y - other->getTextureRect().height / 2)
+		{
+			float ownY = getPosition().y + m_collider->m_fRadius;
+			float otherY = other->getPosition().y - other->getTextureRect().height / 2;
+			move(0, otherY - ownY);
+		}
+		else if(getPosition().y > other->getPosition().y + other->getTextureRect().height / 2)
+		{
+			float ownY = getPosition().y - m_collider->m_fRadius;
+			float otherY = other->getPosition().y + other->getTextureRect().height / 2;
+			move(0, otherY - ownY);
+		}
+	}
+
+	if(other->GetType() == "Bullet")
+	{
+		if(((Bullet*)(other))->m_owner != this)
+		{
+			m_fHealth -= 10;
 		}
 	}
 }

@@ -34,6 +34,8 @@ void Player::Init()
 	m_mousePosition.x = 10;
 	m_mousePosition.y = 10;
 	m_bIsDead = false;
+	delete m_collider;
+	m_collider = new Collider(&(getPosition()), getTextureRect().width / 2);
 }
 
 
@@ -120,12 +122,45 @@ void Player::Shoot(void)
 
 void Player::Hit(GameObject* other)
 {
-	sf::Vector2f normalizedDir = getPosition() - other->getPosition();
-	float dist = Distance(getPosition(), other->getPosition());
-	normalizedDir = NormalizeVector(normalizedDir);
+	if(other->GetType() != "Bullet")
+	{
+		if(other->m_collider->IsCircular)
+		{
+			sf::Vector2f normalizedDir = getPosition() - other->getPosition();
+			float dist = Distance(getPosition(), other->getPosition());
+			normalizedDir = NormalizeVector(normalizedDir);
+		
+			move(normalizedDir * ((getTextureRect().width + other->getTextureRect().width) / 2.0f - dist));
+		}
+		else
+		{
+			if(getPosition().x < other->getPosition().x - other->getTextureRect().width / 2)
+			{
+				float ownX = getPosition().x + m_collider->m_fRadius;
+				float otherX = other->getPosition().x - other->getTextureRect().width / 2;
+				move(otherX - ownX,0);
+			}
+			else if(getPosition().x > other->getPosition().x + other->getTextureRect().width / 2)
+			{
+				float ownX = getPosition().x - m_collider->m_fRadius;
+				float otherX = other->getPosition().x + other->getTextureRect().width / 2;
+				move(otherX - ownX,0);
+			}
 
-	move(normalizedDir * ((getTextureRect().width + other->getTextureRect().width) / 2 - dist));
-
+			if(getPosition().y < other->getPosition().y - other->getTextureRect().height / 2)
+			{
+				float ownY = getPosition().y + m_collider->m_fRadius;
+				float otherY = other->getPosition().y - other->getTextureRect().height / 2;
+				move(0, otherY - ownY);
+			}
+			else if(getPosition().y > other->getPosition().y + other->getTextureRect().height / 2)
+			{
+				float ownY = getPosition().y - m_collider->m_fRadius;
+				float otherY = other->getPosition().y + other->getTextureRect().height / 2;
+				move(0, otherY - ownY);
+			}
+		}
+	}
 	if(other->GetType() == "Bullet" && ((Bullet*)other)->m_owner != this)
 	{
 		m_fHealth -= 3;

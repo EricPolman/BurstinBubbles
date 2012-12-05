@@ -22,7 +22,7 @@ SceneManager::SceneManager(void)
 	LoadTexture("D:/Dropbox/NHTV/Intake/BurstinBubbles/BurstinBubbles/Data/Sprites/lifebar.png", "lifebar");
 	LoadTexture("D:/Dropbox/NHTV/Intake/BurstinBubbles/BurstinBubbles/Data/Sprites/lifebar_red.png", "lifebarred");
 	LoadTexture("D:/Dropbox/NHTV/Intake/BurstinBubbles/BurstinBubbles/Data/Sprites/pond.png", "pond");
-
+	LoadTexture("D:/Dropbox/NHTV/Intake/BurstinBubbles/BurstinBubbles/Data/Sprites/square.png", "square");
 	LoadScene("Data\\Scenes\\default.scene");
 
 	

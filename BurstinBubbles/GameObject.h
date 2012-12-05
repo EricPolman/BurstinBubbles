@@ -1,12 +1,12 @@
 #pragma once
 #include "SFML\Graphics.hpp"
-
+#include "Collider.h"
 class GameObject :
 	public sf::Sprite
 {
 public:
 	GameObject(void);
-	GameObject(std::string);
+	GameObject(std::string, bool circularCollision = true);
 	virtual ~GameObject(void);
 
 	virtual std::string GetType(void);
@@ -26,10 +26,9 @@ public:
 	float Distance(sf::Vector2f, sf::Vector2f);
 	sf::Vector2f NormalizeVector(sf::Vector2f);
 	sf::Vector2f LerpVector(sf::Vector2f, sf::Vector2f, float);
-
+	Collider* m_collider;
 protected:
 	float m_fMaximumSpeed;
 	float m_fRotation;
 	sf::Texture *texture;
 };
-

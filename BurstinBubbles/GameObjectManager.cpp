@@ -44,11 +44,14 @@ GameObjectManager::GameObjectManager(void)
 	m_player = player; 
 	Enemy::g_player = player;
 
+	GameObject* square = new GameObject("square", false);
+	square->move(0,-300);
+	Add(square);
 	
-	for(int i = 0; i < 20; i++)
+	for(int i = 0; i < Enemy::fMAX_ENEMIES; i++)
 	{
 		Enemy* enemy = new Enemy();
-		float degree = (18 * i) * PI / 180;
+		float degree = ((360/ Enemy::fMAX_ENEMIES) * i) * PI / 180;
 		sf::Vector2f newPos(cos(degree), sin(degree));
 
 		enemy->move(newPos * 800.0f);
@@ -71,6 +74,7 @@ GameObjectManager::~GameObjectManager(void)
 	{
 		delete *i;
 	}
+	m_gameObjects.clear();
 }
 
 
@@ -84,9 +88,9 @@ void GameObjectManager::Update(float fDeltaTime)
 			{
 				if((*i) != NULL)
 				{
-					if((*j)->m_bIsCollidable && (*i)->m_bIsCollidable && (*i)->isColliding(*j) && *i != *j)
+					if((*j)->m_bIsCollidable && (*i)->m_bIsCollidable && (*i)->m_collider->Intersects((*j)->m_collider) && *i != *j)
 					{
-						(*j)->Hit(*i);
+						
 						(*i)->Hit(*j);
 					}
 				}
@@ -116,12 +120,9 @@ void GameObjectManager::Update(float fDeltaTime)
 	for(std::vector<GameObject*>::iterator i = m_gameObjects.begin(); i != m_gameObjects.end(); ++i )
 	{
 		(*i)->Update(fDeltaTime);
-		if((*i)->GetType() == "Enemy")
-		{
-			//((Enemy*)(*i))->m_bullets.clear();
-		}
 		if((*i)->m_bIsDead)
 		{
+			(*i)->Die();
 			m_gameObjects.erase(i--);
 		}
 	}

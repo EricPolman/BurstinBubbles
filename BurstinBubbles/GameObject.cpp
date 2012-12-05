@@ -7,7 +7,7 @@ GameObject::GameObject(void)
 }
 
 
-GameObject::GameObject(std::string imagePath)
+GameObject::GameObject(std::string imagePath, bool circularCollision)
 {
 	GameObject::LoadFromPath(imagePath);
 	m_fMaximumSpeed = 250;
@@ -15,11 +15,20 @@ GameObject::GameObject(std::string imagePath)
 	m_bIsDead = false;
 	m_bIsCollidable = true;
 	m_fHealth = 100;
+	if(circularCollision)
+	{
+		m_collider = new Collider(&(getPosition()), getTextureRect().width / 2.0f);
+	}
+	else
+	{
+		m_collider = new Collider(&(getPosition()), getTextureRect());
+	}
 }
 
 
 GameObject::~GameObject(void)
 {
+	delete m_collider;
 }
 
 
@@ -83,5 +92,3 @@ sf::Vector2f GameObject::LerpVector(sf::Vector2f a, sf::Vector2f b, float amount
 	sf::Vector2f diff = b - a;
 	return a + diff * amount;
 }
-
-
