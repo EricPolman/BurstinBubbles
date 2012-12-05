@@ -3,13 +3,17 @@
 #include "Bullet.h"
 
 Player* Enemy::g_player;
-float fSHOOT_TIME = 1.0f;
+float fSHOOT_TIME = 0.8f;
+
 float Enemy::fCurrentEnemies = 0;
-float Enemy::fMAX_ENEMIES = 10;
+float Enemy::fMAX_ACTIVE_ENEMIES = 15;
+float Enemy::fTOTAL_ENEMIES_PER_SCENE = 50;
+float Enemy::fSPAWNED_ENEMIES_PER_SCENE = 0;
 
 Enemy::Enemy(void) : GameObject("enemy")
 {
 	Enemy::fCurrentEnemies++;
+	Enemy::fSPAWNED_ENEMIES_PER_SCENE++;
 	delete m_collider;
 	m_collider = new Collider(&(getPosition()), getTextureRect().width / 2.0f);
 }
@@ -17,7 +21,6 @@ Enemy::Enemy(void) : GameObject("enemy")
 
 Enemy::Enemy(const Enemy& enemy) : GameObject("enemy")
 {
-	Enemy::fCurrentEnemies++;
 	m_bullets = enemy.m_bullets;
 	delete m_collider;
 	m_collider = new Collider(&(getPosition()), getTextureRect().width / 2.0f);

@@ -17,8 +17,10 @@ public:
 	virtual void Die(void);
 	std::vector<Bullet*> m_bullets;
 
-	static float fMAX_ENEMIES;
+	static float fMAX_ACTIVE_ENEMIES;
 	static float fCurrentEnemies;
+	static float fTOTAL_ENEMIES_PER_SCENE;
+	static float fSPAWNED_ENEMIES_PER_SCENE;
 private:
 	float m_fShootTimer;
 };

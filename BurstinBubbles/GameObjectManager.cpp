@@ -48,10 +48,10 @@ GameObjectManager::GameObjectManager(void)
 	square->move(0,-300);
 	Add(square);
 	
-	for(int i = 0; i < Enemy::fMAX_ENEMIES; i++)
+	for(int i = 0; i < Enemy::fMAX_ACTIVE_ENEMIES / 2; i++)
 	{
 		Enemy* enemy = new Enemy();
-		float degree = ((360/ Enemy::fMAX_ENEMIES) * i) * PI / 180;
+		float degree = ((360/ Enemy::fMAX_ACTIVE_ENEMIES) * i) * PI / 180;
 		sf::Vector2f newPos(cos(degree), sin(degree));
 
 		enemy->move(newPos * 800.0f);
@@ -80,6 +80,13 @@ GameObjectManager::~GameObjectManager(void)
 
 void GameObjectManager::Update(float fDeltaTime)
 {
+	if(Enemy::fCurrentEnemies < Enemy::fMAX_ACTIVE_ENEMIES && Enemy::fSPAWNED_ENEMIES_PER_SCENE < Enemy::fTOTAL_ENEMIES_PER_SCENE)
+	{
+		Enemy* enem = new Enemy();
+		enem->move(-200,-200);
+		Add(enem);
+	}
+
 	for(std::vector<GameObject*>::iterator j = m_gameObjects.begin(); j != m_gameObjects.end(); ++j )
 	{
 		if((*j) != NULL)
