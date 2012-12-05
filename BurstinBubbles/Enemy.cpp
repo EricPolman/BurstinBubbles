@@ -39,7 +39,7 @@ void Enemy::Die(void)
 void Enemy::Update(float fDeltaTime)
 {
 	sf::Vector2f dir(sf::Vector2f(g_player->getPosition().x,g_player->getPosition().y) - getPosition());
-	dir = NormalizeVector(dir);
+	dir = MathHelper::Normalize(dir);
 	float newRot = asinf(dir.x) * 180 / PI;
 	if(dir.y >0)
 	{	
@@ -48,13 +48,13 @@ void Enemy::Update(float fDeltaTime)
 	setRotation(newRot);
 
 	m_fShootTimer += fDeltaTime;
-	if(Distance(g_player->getPosition(), getPosition()) > 300)
+	if(MathHelper::Distance(g_player->getPosition(), getPosition()) > 300)
 	{
-		move(NormalizeVector(g_player->getPosition() - getPosition()) * m_fMaximumSpeed * fDeltaTime);
+		move(MathHelper::Normalize(g_player->getPosition() - getPosition()) * m_fMaximumSpeed * fDeltaTime);
 	}
 	else
 	{
-		if(Distance(g_player->getPosition(), getPosition()) > 100 && Distance(g_player->getPosition(), getPosition()) < 350)
+		if(MathHelper::Distance(g_player->getPosition(), getPosition()) > 100 && MathHelper::Distance(g_player->getPosition(), getPosition()) < 350)
 		{
 			if(m_fShootTimer > fSHOOT_TIME)
 			{
@@ -64,7 +64,7 @@ void Enemy::Update(float fDeltaTime)
 		}
 		else
 		{
-			move(NormalizeVector(getPosition() - g_player->getPosition()) * m_fMaximumSpeed * 0.5f * fDeltaTime);
+			move(MathHelper::Normalize(getPosition() - g_player->getPosition()) * m_fMaximumSpeed * 0.5f * fDeltaTime);
 		}
 	}
 
@@ -80,8 +80,8 @@ void Enemy::Hit(GameObject* other)
 	if(other->m_collider->IsCircular)
 	{
 		sf::Vector2f normalizedDir = getPosition() - other->getPosition();
-		float dist = Distance(getPosition(), other->getPosition());
-		normalizedDir = NormalizeVector(normalizedDir);
+		float dist = MathHelper::Distance(getPosition(), other->getPosition());
+		normalizedDir = MathHelper::Normalize(normalizedDir);
 		
 		move(normalizedDir * ((getTextureRect().width + other->getTextureRect().width) / 2.0f - dist));
 	}

@@ -16,8 +16,5 @@ public:
 
 	float m_fRadius;
 	const sf::IntRect* m_boundingBox;
-	
-	float Distance(sf::Vector2f, sf::Vector2f);
-	sf::Vector2f NormalizeVector(sf::Vector2f);
 };
 

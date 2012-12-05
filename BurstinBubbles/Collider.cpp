@@ -34,7 +34,7 @@ bool Collider::Intersects(Collider* other)
 	{
 		if(other->IsCircular)
 		{
-			if(Distance(*m_position, *(other->m_position)) < m_fRadius + other->m_fRadius)
+			if(MathHelper::Distance(*m_position, *(other->m_position)) < m_fRadius + other->m_fRadius)
 			{
 				return true;
 			}
@@ -46,7 +46,7 @@ bool Collider::Intersects(Collider* other)
 		else
 		{
 			sf::Vector2f direction = *(other->m_position) - *m_position;
-			direction = NormalizeVector(direction);
+			direction = MathHelper::Normalize(direction);
 			direction *= m_fRadius;
 			direction += *m_position;
 			
@@ -70,7 +70,7 @@ bool Collider::Intersects(Collider* other)
 		if(other->IsCircular)
 		{
 			sf::Vector2f direction = *m_position - *(other->m_position);
-			direction = NormalizeVector(direction);
+			direction = MathHelper::Normalize(direction);
 			direction *= other->m_fRadius;
 			direction += *(other->m_position);
 
@@ -98,18 +98,4 @@ bool Collider::Intersects(Collider* other)
 	}
 
 	return false;
-}
-
-
-sf::Vector2f Collider::NormalizeVector(sf::Vector2f vec)
-{
-	float mag = Distance(sf::Vector2f(0,0), vec);
-	return sf::Vector2f(vec.x / mag, vec.y / mag);
-}
-
-
-float Collider::Distance(sf::Vector2f a, sf::Vector2f b)
-{
-	float result = std::sqrt((a.x - b.x) * (a.x - b.x) + (a.y - b.y) * (a.y - b.y));
-	return result;
 }

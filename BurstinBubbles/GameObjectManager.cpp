@@ -90,7 +90,6 @@ void GameObjectManager::Update(float fDeltaTime)
 				{
 					if((*j)->m_bIsCollidable && (*i)->m_bIsCollidable && (*i)->m_collider->Intersects((*j)->m_collider) && *i != *j)
 					{
-						
 						(*i)->Hit(*j);
 					}
 				}

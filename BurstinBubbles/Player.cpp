@@ -50,7 +50,7 @@ void Player::Update(float fDeltaTime)
 	GameObject::Update(fDeltaTime);
 
 	sf::Vector2f dir(sf::Vector2f(m_mousePosition.x,m_mousePosition.y) - getPosition());
-	dir = NormalizeVector(dir);
+	dir = MathHelper::Normalize(dir);
 
 	float newRot = asinf(dir.x) * 180 / PI;
 	if(dir.y >0)
@@ -80,7 +80,7 @@ void Player::Update(float fDeltaTime)
 	}
 	if(moveDir.x != 0 && moveDir.y != 0)
 	{
-		float magMove = Distance(sf::Vector2f(0,0), moveDir);
+		float magMove = MathHelper::Magnitude(moveDir);
 		moveDir.x /= magMove;
 		moveDir.y /= magMove;
 	}
@@ -127,8 +127,8 @@ void Player::Hit(GameObject* other)
 		if(other->m_collider->IsCircular)
 		{
 			sf::Vector2f normalizedDir = getPosition() - other->getPosition();
-			float dist = Distance(getPosition(), other->getPosition());
-			normalizedDir = NormalizeVector(normalizedDir);
+			float dist = MathHelper::Distance(getPosition(), other->getPosition());
+			normalizedDir = MathHelper::Normalize(normalizedDir);
 		
 			move(normalizedDir * ((getTextureRect().width + other->getTextureRect().width) / 2.0f - dist));
 		}
