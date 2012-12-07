@@ -126,6 +126,14 @@ void Player::Hit(GameObject* other)
 {
 	if(other->GetType() != "Bullet")
 	{
+		if(other->GetType() == "Medipack")
+		{
+			m_fHealth += 50;
+			if(m_fHealth > 100)
+				m_fHealth = 100;
+
+			std::cout << "OMGLOL";
+		}
 		if(other->m_collider->IsCircular)
 		{
 			sf::Vector2f normalizedDir = getPosition() - other->getPosition();
@@ -174,7 +182,7 @@ void Player::Hit(GameObject* other)
 	}
 	if(other->GetType() == "Bullet" && ((Bullet*)other)->m_owner != this)
 	{
-		m_fHealth -= 12;
+		m_fHealth -= 8;
 		if(MathHelper::Random() < 0.5f)
 		{
 			SoundManager::getInstance()->Play("impact_body_player1", 1, true);

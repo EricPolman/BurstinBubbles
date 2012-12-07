@@ -92,6 +92,7 @@
     <ClInclude Include="GUIElement.h" />
     <ClInclude Include="GUIManager.h" />
     <ClInclude Include="MathHelper.h" />
+    <ClInclude Include="Medipack.h" />
     <ClInclude Include="Player.h" />
     <ClInclude Include="Scene.h" />
     <ClInclude Include="SceneManager.h" />
@@ -112,6 +113,7 @@
     <ClCompile Include="GUIElement.cpp" />
     <ClCompile Include="GUIManager.cpp" />
     <ClCompile Include="MathHelper.cpp" />
+    <ClCompile Include="Medipack.cpp" />
     <ClCompile Include="Player.cpp" />
     <ClCompile Include="Scene.cpp" />
     <ClCompile Include="SceneManager.cpp" />

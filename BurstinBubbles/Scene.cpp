@@ -12,8 +12,8 @@ Scene::Scene(void)
 	m_bScenePlaying = false;
 
 	Enemy::fCurrentEnemies = 0;
-	Enemy::fMAX_ACTIVE_ENEMIES = 10;
-	Enemy::fTOTAL_ENEMIES_PER_SCENE = 10;
+	Enemy::fMAX_ACTIVE_ENEMIES = 12;
+	Enemy::fTOTAL_ENEMIES_PER_SCENE = 50;
 	Enemy::fSPAWNED_ENEMIES_PER_SCENE = 0;
 
 	m_GameObjectManager = new GameObjectManager();

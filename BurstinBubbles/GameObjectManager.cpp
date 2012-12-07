@@ -3,7 +3,7 @@
 #include "TextureManager.h"
 #include "Game.h"
 #include "Enemy.h"
-
+#include "Medipack.h"
 
 GameObjectManager::GameObjectManager(void)
 {
@@ -33,6 +33,16 @@ GameObjectManager::GameObjectManager(void)
 		
 		tree->move(-150, 110 + 150 + 150 * i);
 		Add(tree);
+	}
+
+	for(int i = 0; i < 10; i++)
+	{
+		Medipack* medipack = new Medipack();
+		float x = -2000 + MathHelper::Random() * 4000.0f;
+		float y = -2000 + MathHelper::Random() * 4000.0f;
+
+		medipack->move(x, y);
+		Add(medipack);
 	}
 
 	for(int i = 0; i < 20; i++)
