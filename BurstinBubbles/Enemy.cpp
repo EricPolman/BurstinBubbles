@@ -7,7 +7,7 @@ float fSHOOT_TIME = 0.8f;
 
 float Enemy::fCurrentEnemies = 0;
 float Enemy::fMAX_ACTIVE_ENEMIES = 15;
-float Enemy::fTOTAL_ENEMIES_PER_SCENE = 50;
+float Enemy::fTOTAL_ENEMIES_PER_SCENE = 20;
 float Enemy::fSPAWNED_ENEMIES_PER_SCENE = 0;
 
 Enemy::Enemy(void) : GameObject("enemy")

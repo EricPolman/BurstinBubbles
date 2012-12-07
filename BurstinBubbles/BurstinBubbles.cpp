@@ -5,7 +5,7 @@
 
 int main()
 {
-    sf::RenderWindow Window(sf::VideoMode(1000, 600), "Bubble Bonanza");
+    sf::RenderWindow Window(sf::VideoMode(SCREEN_WIDTH, SCREEN_HEIGHT), "Bubble Bonanza");
     sf::Clock deltaClock;
 	Game game;
 

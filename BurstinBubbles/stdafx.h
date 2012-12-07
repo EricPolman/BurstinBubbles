@@ -11,6 +11,8 @@
 #include <tchar.h>
 #include "MathHelper.h"
 #define PI 3.14159265
+#define SCREEN_WIDTH 1000
+#define SCREEN_HEIGHT 600
 
 
 

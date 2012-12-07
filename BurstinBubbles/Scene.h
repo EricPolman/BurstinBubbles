@@ -1,6 +1,7 @@
 #pragma once
 #include "GameObjectManager.h"
 #include "SFML/Graphics.hpp"
+#include "Enemy.h"
 
 class Scene
 {
@@ -14,8 +15,15 @@ public:
 	void Draw(sf::RenderWindow*);
 	sf::Sprite m_lifeBar;
 	sf::Sprite m_lifeBarRed;
+	sf::Sprite m_skull;
+
 	bool m_bPlayerIsDead;
 	bool m_bScenePlaying;
+	sf::Font* m_font;
+
+	sf::Text m_lifebarText;
+	sf::Text m_killText;
+
 private:
 	bool m_bCameraFollowsPlayer;
 };

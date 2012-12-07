@@ -23,12 +23,13 @@ SceneManager::SceneManager(void)
 	LoadTexture("D:/Dropbox/NHTV/Intake/BurstinBubbles/BurstinBubbles/Data/Sprites/lifebar_red.png", "lifebarred");
 	LoadTexture("D:/Dropbox/NHTV/Intake/BurstinBubbles/BurstinBubbles/Data/Sprites/pond.png", "pond");
 	LoadTexture("D:/Dropbox/NHTV/Intake/BurstinBubbles/BurstinBubbles/Data/Sprites/square.png", "square");
+	LoadTexture("D:/Dropbox/NHTV/Intake/BurstinBubbles/BurstinBubbles/Data/Sprites/skull.png", "skull");
 	LoadScene("Data\\Scenes\\default.scene");
 
 	
 	m_loadingScreen.setTexture(*TextureManager::getInstance()->m_Textures["loadingscreen"]);
 	m_loadingScreen.setOrigin(m_loadingScreen.getTextureRect().width / 2,m_loadingScreen.getTextureRect().height / 2);
-	m_loadingScreen.setPosition(500,300);
+	m_loadingScreen.setPosition(SCREEN_WIDTH / 2, SCREEN_HEIGHT / 2);
 }
 
 
