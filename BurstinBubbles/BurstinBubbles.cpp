@@ -3,14 +3,17 @@
 #include "stdafx.h"
 #include "Game.h"
 
+
 int main()
 {
-    sf::RenderWindow Window(sf::VideoMode(SCREEN_WIDTH, SCREEN_HEIGHT), "Bubble Bonanza");
+    sf::RenderWindow Window(sf::VideoMode(SCREEN_WIDTH, SCREEN_HEIGHT), "Burstin' Bubbles");
     sf::Clock deltaClock;
-	Game game;
 
+	Game game;
+	
     while (Window.isOpen())
     {
+		
         sf::Event event;
         while (Window.pollEvent(event))
         {
@@ -29,6 +32,5 @@ int main()
 
 		Window.display();
     }
-
     return 0;
 }

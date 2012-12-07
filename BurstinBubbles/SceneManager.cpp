@@ -3,8 +3,9 @@
 #include "Scene.h"
 #include <direct.h>
 #include "TextureManager.h"
+#include "SoundManager.h"
 
-float fRESTART_TIME = 4;
+float fRESTART_TIME = 5;
 
 SceneManager::SceneManager(void)
 {
@@ -24,6 +25,16 @@ SceneManager::SceneManager(void)
 	LoadTexture("D:/Dropbox/NHTV/Intake/BurstinBubbles/BurstinBubbles/Data/Sprites/pond.png", "pond");
 	LoadTexture("D:/Dropbox/NHTV/Intake/BurstinBubbles/BurstinBubbles/Data/Sprites/square.png", "square");
 	LoadTexture("D:/Dropbox/NHTV/Intake/BurstinBubbles/BurstinBubbles/Data/Sprites/skull.png", "skull");
+	LoadTexture("D:/Dropbox/NHTV/Intake/BurstinBubbles/BurstinBubbles/Data/Sprites/buildingrow.png", "buildingrow");
+	
+	LoadSound("D:/Dropbox/NHTV/Intake/BurstinBubbles/BurstinBubbles/Data/Sounds/shoot.wav", "shoot");
+	LoadSound("D:/Dropbox/NHTV/Intake/BurstinBubbles/BurstinBubbles/Data/Sounds/shoot_enemy.wav", "shoot_enemy");
+	LoadSound("D:/Dropbox/NHTV/Intake/BurstinBubbles/BurstinBubbles/Data/Sounds/impact_body.wav", "impact_body");
+	LoadSound("D:/Dropbox/NHTV/Intake/BurstinBubbles/BurstinBubbles/Data/Sounds/impact_body_player1.wav", "impact_body_player1");
+	LoadSound("D:/Dropbox/NHTV/Intake/BurstinBubbles/BurstinBubbles/Data/Sounds/impact_body_player2.wav", "impact_body_player2");
+	LoadSound("D:/Dropbox/NHTV/Intake/BurstinBubbles/BurstinBubbles/Data/Sounds/background_loading.wav", "background_loading", true);
+	LoadSound("D:/Dropbox/NHTV/Intake/BurstinBubbles/BurstinBubbles/Data/Sounds/background_scene1.wav", "background_scene1", true);
+	
 	LoadScene("Data\\Scenes\\default.scene");
 
 	
@@ -47,6 +58,12 @@ void SceneManager::LoadTexture(std::string path, std::string name)
 }
 
 
+void SceneManager::LoadSound(std::string path, std::string name, bool loop)
+{
+	SoundManager::getInstance()->Add(name, path, loop);
+}
+
+
 void SceneManager::Update(float fDeltaTime)
 {
 	m_currentScene->Update(fDeltaTime);
@@ -62,6 +79,8 @@ void SceneManager::Update(float fDeltaTime)
 		if(m_fSceneRestartTimer > fRESTART_TIME)
 		{
 			m_currentScene->m_bScenePlaying = true;
+			SoundManager::getInstance()->m_sounds["background_loading"]->stop();
+			SoundManager::getInstance()->Play("background_scene1");
 		}
 	}
 }
@@ -70,6 +89,8 @@ void SceneManager::Update(float fDeltaTime)
 void SceneManager::LoadScene(std::string sFile)
 {
 	m_currentScene = new Scene();
+	SoundManager::getInstance()->m_sounds["background_scene1"]->stop();
+	SoundManager::getInstance()->Play("background_loading");
 	m_fSceneRestartTimer = 0;
 	m_currentScene->m_bScenePlaying = false;
 	//m_currentScene->LoadFromFile(g_sRootPath + "\\" + sFile);

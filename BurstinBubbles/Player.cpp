@@ -116,6 +116,8 @@ void Player::Shoot(void)
 	bullet->m_direction = sf::Vector2f(std::cos(PI * (getRotation() - 90) / 180.0f), std::sin(PI * (getRotation() - 90) / 180.0f));
 	bullet->setPosition(getPosition() + bullet->m_direction * (float)(getTextureRect().width / 2));
 	bullet->m_owner = this;
+
+	SoundManager::getInstance()->Play("shoot", 0.8f, true);
 	m_bullets.push_back(bullet);
 }
 
@@ -159,11 +161,28 @@ void Player::Hit(GameObject* other)
 				float otherY = other->getPosition().y + other->getTextureRect().height / 2;
 				move(0, otherY - ownY);
 			}
+
+			if(getPosition().y + m_collider->m_fRadius > other->getPosition().y - other->getTextureRect().height / 2 &&
+			   getPosition().y - m_collider->m_fRadius < other->getPosition().y + other->getTextureRect().height / 2 &&
+			   getPosition().x - m_collider->m_fRadius < other->getPosition().x + other->getTextureRect().width / 2 &&
+			   getPosition().x + m_collider->m_fRadius > other->getPosition().x - other->getTextureRect().width / 2)
+			{
+				sf::Vector2f dir = MathHelper::Normalize(getPosition() - other->getPosition());
+				move(dir * 30.0f);
+			}
 		}
 	}
 	if(other->GetType() == "Bullet" && ((Bullet*)other)->m_owner != this)
 	{
-		m_fHealth -= 5;
+		m_fHealth -= 12;
+		if(MathHelper::Random() < 0.5f)
+		{
+			SoundManager::getInstance()->Play("impact_body_player1", 1, true);
+		}
+		else
+		{
+			SoundManager::getInstance()->Play("impact_body_player2", 1, true);
+		}
 	}
 }
 

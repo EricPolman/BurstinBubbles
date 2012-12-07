@@ -16,6 +16,8 @@ public:
 	void Draw(sf::RenderWindow*);
 	float m_fSceneRestartTimer;
 	void LoadTexture(std::string, std::string);
+	void LoadSound(std::string, std::string, bool loop = false);
+
 	sf::Sprite m_loadingScreen;
 private:
 	std::string g_sRootPath;

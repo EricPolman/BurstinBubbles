@@ -1,4 +1,3 @@
-#include "StdAfx.h"
 #include "MathHelper.h"
 
 std::default_random_engine generator;
@@ -25,6 +24,6 @@ sf::Vector2f MathHelper::Normalize(sf::Vector2f vec)
 
 float MathHelper::Random(float range)
 {
-	float rnd = distribution(generator); 
-	return rnd * range;
+	float rnd = distribution(generator);
+	return rnd;
 }

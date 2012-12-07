@@ -2,15 +2,20 @@
 #include "Scene.h"
 #include "TextureManager.h"
 
-
+int Enemy::fCurrentEnemies;
+int Enemy::fMAX_ACTIVE_ENEMIES;
+int Enemy::fTOTAL_ENEMIES_PER_SCENE;
+int Enemy::fSPAWNED_ENEMIES_PER_SCENE;
 
 Scene::Scene(void)
 {
 	m_bScenePlaying = false;
+
 	Enemy::fCurrentEnemies = 0;
-	Enemy::fMAX_ACTIVE_ENEMIES = 15;
-	Enemy::fTOTAL_ENEMIES_PER_SCENE = 20;
+	Enemy::fMAX_ACTIVE_ENEMIES = 10;
+	Enemy::fTOTAL_ENEMIES_PER_SCENE = 10;
 	Enemy::fSPAWNED_ENEMIES_PER_SCENE = 0;
+
 	m_GameObjectManager = new GameObjectManager();
 	m_font = new sf::Font();
 	m_font->loadFromFile("D:/Dropbox/NHTV/Intake/BurstinBubbles/BurstinBubbles/Data/Fonts/defused.ttf");
@@ -24,9 +29,7 @@ Scene::Scene(void)
 	m_skull.setTexture(*TextureManager::getInstance()->m_Textures["skull"]);
 	m_skull.setPosition(SCREEN_WIDTH - m_skull.getTextureRect().width - 10, SCREEN_HEIGHT - m_skull.getTextureRect().height - 40);
 
-	int killText = (int)((Enemy::fTOTAL_ENEMIES_PER_SCENE - Enemy::fSPAWNED_ENEMIES_PER_SCENE) + Enemy::fCurrentEnemies);
-	char temp[256];
-	sprintf(temp, "%d enemies left", killText);
+	std::string temp = "Starting";
 	m_killText.setString(temp);
 
 	m_killText.setPosition(SCREEN_WIDTH - m_skull.getTextureRect().width - 180, 0);
@@ -64,7 +67,7 @@ void Scene::Update(float fDeltaTime)
 			m_GameObjectManager->CenterPlayer();
 		}
 	}
-	if(m_GameObjectManager->m_player->m_bIsDead)
+	if(m_GameObjectManager->m_player->m_bIsDead || Enemy::fCurrentEnemies == 0)
 	{
 		m_bPlayerIsDead = true;
 	}
@@ -79,11 +82,12 @@ void Scene::Draw(sf::RenderWindow *window)
 	window->draw(m_lifeBar);
 	window->draw(m_lifebarText);
 	//window->draw(m_skull);
-	int killText = (int)((Enemy::fTOTAL_ENEMIES_PER_SCENE - Enemy::fSPAWNED_ENEMIES_PER_SCENE) + Enemy::fCurrentEnemies);
+	int killText = Enemy::fCurrentEnemies + (Enemy::fTOTAL_ENEMIES_PER_SCENE - Enemy::fSPAWNED_ENEMIES_PER_SCENE);
 	char temp[256];
 	sprintf(temp, "%d enemies left", killText);
 	m_killText.setString(temp);
 	window->draw(m_killText);
+
 }
 
 

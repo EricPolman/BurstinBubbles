@@ -2,6 +2,7 @@
 #include "gameobject.h"
 #include <vector>
 #include "bullet.h"
+#include "SoundManager.h"
 
 class Player :
 	public GameObject
@@ -23,7 +24,6 @@ public:
 	virtual void Die(void);
 
 	std::vector<Bullet*> m_bullets;
-
 private:
 	void Init(void);
 	

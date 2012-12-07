@@ -6,7 +6,7 @@ Bullet::Bullet(void) : GameObject("bullet")
 	m_fBulletLifetime = 0;
 	m_bCanDie = true;
 	m_bIsCollidable = true;
-	m_fMaximumSpeed = 500.0f;
+	m_fMaximumSpeed = 600.0f;
 }
 
 
