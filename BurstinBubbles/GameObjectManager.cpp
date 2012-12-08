@@ -3,49 +3,16 @@
 #include "TextureManager.h"
 #include "Game.h"
 #include "Enemy.h"
-#include "Medipack.h"
 
 GameObjectManager::GameObjectManager(void)
 {
 	m_gameObjects.clear();
 	m_gameObjects.reserve(200);
 	
-	for(int i = 0; i < 6; i++)
-	{
-		GameObject* barrel = new GameObject("barrel");
-		
-		barrel->move(100 + i * 100.0f, -30 + (i%2 * 100));
-		Add(barrel);
-	}
-
-	for(int i = 0; i < 10; i++)
-	{
-		Medipack* medipack = new Medipack();
-		float x = -2000 + MathHelper::Random() * 4000.0f;
-		float y = -2000 + MathHelper::Random() * 4000.0f;
-
-		medipack->move(x, y);
-		Add(medipack);
-	}
-
-	GameObject* pond = new GameObject("pond");
-	pond->move(-400, 400);
-	Add(pond);
-	
 	Player* player = new Player("player");
 	Add(player);
 	m_player = player; 
 	Enemy::g_player = player;
-
-	GameObject* square = new GameObject("square", false);
-	square->move(-50,-320);
-	Add(square);
-	square = new GameObject("square", false);
-	square->move(350,-320);
-	Add(square);
-	square = new GameObject("square", false);
-	square->move(350,370);
-	Add(square);
 
 	for(int i = 0; i < Enemy::fMAX_ACTIVE_ENEMIES / 2; i++)
 	{
@@ -109,11 +76,11 @@ void GameObjectManager::Update(float fDeltaTime)
 
 	for(std::vector<GameObject*>::iterator j = m_gameObjects.begin(); j != m_gameObjects.end(); ++j )
 	{
-		if((*j) != NULL)
+		if((*j) != NULL && (*j)->getPosition().x > -100 && (*j)->getPosition().y > -100 && (*j)->getPosition().x < SCREEN_WIDTH+100 && (*j)->getPosition().y < SCREEN_HEIGHT+100)
 		{
 			for(std::vector<GameObject*>::iterator i = m_gameObjects.begin(); i != m_gameObjects.end(); ++i )
 			{
-				if((*i) != NULL)
+				if((*i) != NULL && (*i)->getPosition().x > -100 && (*i)->getPosition().y > -100 && (*i)->getPosition().x < SCREEN_WIDTH+100 && (*i)->getPosition().y < SCREEN_HEIGHT+100)
 				{
 					if((*j)->m_bIsCollidable && (*i)->m_bIsCollidable && (*i)->m_collider->Intersects((*j)->m_collider) && *i != *j)
 					{
@@ -180,7 +147,7 @@ void GameObjectManager::Draw(sf::RenderWindow *window)
 
 	for(std::vector<GameObject*>::iterator i = m_gameObjects.begin(); i != m_gameObjects.end(); ++i )
 	{
-		if(!(*i)->m_bIsDead)
+		if(!(*i)->m_bIsDead  && (*i)->getPosition().x > -200 && (*i)->getPosition().y > -200 && (*i)->getPosition().x < SCREEN_WIDTH+200 && (*i)->getPosition().y < SCREEN_HEIGHT+200)
 			window->draw(*(*i));	
 	}	
 }

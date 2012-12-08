@@ -1,6 +1,7 @@
 #include "StdAfx.h"
 #include "Scene.h"
 #include "TextureManager.h"
+#include "Medipack.h"
 
 int Enemy::fCurrentEnemies;
 int Enemy::fMAX_ACTIVE_ENEMIES;
@@ -36,6 +37,27 @@ Scene::Scene(void)
 			}
 		}
 	}
+
+	for(int i = 0; i < 10; i++)
+	{
+		Medipack* medipack = new Medipack();
+		float x = -512 * ((m_roadManager->m_iGridSizeX - 2) / 2) + MathHelper::Random() * (m_roadManager->m_iGridSizeX - 4);
+		float y = -768 * ((m_roadManager->m_iGridSizeY - 2) / 2) + MathHelper::Random() * (m_roadManager->m_iGridSizeY - 4);
+
+		medipack->setPosition(x, y);
+		m_GameObjectManager->Add(medipack);
+	}
+	for(int i = 0; i < 6; i++)
+	{
+		GameObject* barrel = new GameObject("barrel");
+		
+		barrel->move(100 + i * 100.0f, -30 + (i%2 * 100));
+		m_GameObjectManager->Add(barrel);
+	}
+
+	GameObject* pond = new GameObject("pond");
+	pond->move(-400, 400);
+	m_GameObjectManager->Add(pond);
 
 	m_font = new sf::Font();
 	m_font->loadFromFile("D:/Dropbox/NHTV/Intake/BurstinBubbles/BurstinBubbles/Data/Fonts/defused.ttf");
