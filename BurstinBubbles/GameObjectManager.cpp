@@ -17,20 +17,6 @@ GameObjectManager::GameObjectManager(void)
 		barrel->move(100 + i * 100.0f, -30 + (i%2 * 100));
 		Add(barrel);
 	}
-	for(int i = 0; i < 6; i++)
-	{
-		GameObject* tree = new GameObject("tree");
-		
-		tree->move(-150 - 150 * i, 110);
-		Add(tree);
-	}
-	for(int i = 0; i < 5; i++)
-	{
-		GameObject* tree = new GameObject("tree");
-		
-		tree->move(-150, 110 + 150 + 150 * i);
-		Add(tree);
-	}
 
 	for(int i = 0; i < 10; i++)
 	{
@@ -40,19 +26,6 @@ GameObjectManager::GameObjectManager(void)
 
 		medipack->move(x, y);
 		Add(medipack);
-	}
-
-	for(int i = 0; i < 20; i++)
-	{
-		GameObject* tree = new GameObject("tree");
-		tree->move(-1000.0f + MathHelper::Random() * 500.0f, 200.0f + MathHelper::Random() * 600.0f);
-		Add(tree);
-	}
-	for(int i = 0; i < 20; i++)
-	{
-		GameObject* tree = new GameObject("tree");
-		tree->move(765.0f + MathHelper::Random() * 470.0f, -820.0f + MathHelper::Random() * 740.0f);
-		Add(tree);
 	}
 
 	GameObject* pond = new GameObject("pond");

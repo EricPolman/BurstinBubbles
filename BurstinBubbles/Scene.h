@@ -16,6 +16,8 @@ public:
 	void Update(float);
 	void LoadFromFile(std::string);
 	void Draw(sf::RenderWindow*);
+	void RandomlyPlaceObjects(std::string name, int amount, sf::IntRect range);
+
 	sf::Sprite m_lifeBar;
 	sf::Sprite m_lifeBarRed;
 	sf::Sprite m_skull;

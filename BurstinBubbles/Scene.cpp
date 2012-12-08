@@ -20,6 +20,23 @@ Scene::Scene(void)
 	m_roadManager = new RoadManager();
 	m_roadManager->Generate();
 
+	for(int x = 0; x < m_roadManager->m_iGridSizeX; x++)
+	{
+		for(int y = 0; y < m_roadManager->m_iGridSizeY; y++)
+		{
+			if(m_roadManager->roadPieces[x][y]->GetName() == "field_grass")
+			{
+				sf::IntRect rect(
+					m_roadManager->roadPieces[x][y]->getPosition().x - m_roadManager->roadPieces[x][y]->getTextureRect().width / 2,
+					m_roadManager->roadPieces[x][y]->getPosition().y - m_roadManager->roadPieces[x][y]->getTextureRect().height / 2, 
+					m_roadManager->roadPieces[x][y]->getTextureRect().width,
+					m_roadManager->roadPieces[x][y]->getTextureRect().height
+				);
+				RandomlyPlaceObjects("tree", 20, rect);
+			}
+		}
+	}
+
 	m_font = new sf::Font();
 	m_font->loadFromFile("D:/Dropbox/NHTV/Intake/BurstinBubbles/BurstinBubbles/Data/Fonts/defused.ttf");
 
@@ -28,9 +45,6 @@ Scene::Scene(void)
 	m_lifebarText.setFont(*m_font);
 	m_lifebarText.setCharacterSize(16);
 	m_lifebarText.setColor(sf::Color::Black);
-
-	m_skull.setTexture(*TextureManager::getInstance()->m_Textures["skull"]);
-	m_skull.setPosition(SCREEN_WIDTH - m_skull.getTextureRect().width - 10, SCREEN_HEIGHT - m_skull.getTextureRect().height - 40);
 
 	std::string temp = "Starting";
 	m_killText.setString(temp);
@@ -87,7 +101,6 @@ void Scene::Draw(sf::RenderWindow *window)
 	m_lifeBar.setTextureRect(sf::IntRect(0,0, (m_GameObjectManager->m_player->m_fHealth / 100) * m_lifeBarRed.getTextureRect().width,m_lifeBarRed.getTextureRect().height));
 	window->draw(m_lifeBar);
 	window->draw(m_lifebarText);
-	//window->draw(m_skull);
 	int killText = Enemy::fCurrentEnemies + (Enemy::fTOTAL_ENEMIES_PER_SCENE - Enemy::fSPAWNED_ENEMIES_PER_SCENE);
 	char temp[256];
 	sprintf(temp, "%d enemies left", killText);
@@ -102,4 +115,15 @@ void Scene::LoadFromFile(std::string sFile)
 	/*
 	 *	TODO: Implement loading of .scene-file. Placing assets, players, enemies, etc through GameObjectManager.
 	 */
+}
+
+
+void Scene::RandomlyPlaceObjects(std::string name, int amount, sf::IntRect range)
+{
+	for(int i = 0; i < amount; i++)
+	{
+		GameObject* go = new GameObject(name);
+		go->setPosition(range.left + range.width * MathHelper::Random(), range.top + range.height * MathHelper::Random());
+		m_GameObjectManager->Add(go);
+	}
 }
