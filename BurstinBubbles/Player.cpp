@@ -131,8 +131,6 @@ void Player::Hit(GameObject* other)
 			m_fHealth += 50;
 			if(m_fHealth > 100)
 				m_fHealth = 100;
-
-			std::cout << "OMGLOL";
 		}
 		if(other->m_collider->IsCircular)
 		{

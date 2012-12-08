@@ -108,7 +108,6 @@ GameObjectManager::~GameObjectManager(void)
 
 void GameObjectManager::Update(float fDeltaTime)
 {
-	//std::cout << m_gameObjects[0]->getPosition().x - 500 << std::endl;
 	if(Enemy::fCurrentEnemies < Enemy::fMAX_ACTIVE_ENEMIES && Enemy::fSPAWNED_ENEMIES_PER_SCENE < Enemy::fTOTAL_ENEMIES_PER_SCENE)
 	{
 		Enemy* enem = new Enemy();

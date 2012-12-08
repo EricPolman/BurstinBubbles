@@ -29,6 +29,7 @@ SceneManager::SceneManager(void)
 	LoadTexture("D:/Dropbox/NHTV/Intake/BurstinBubbles/BurstinBubbles/Data/Sprites/road_intersection.png", "road_intersection");
 	LoadTexture("D:/Dropbox/NHTV/Intake/BurstinBubbles/BurstinBubbles/Data/Sprites/road_vertical.png", "road_vertical");
 	LoadTexture("D:/Dropbox/NHTV/Intake/BurstinBubbles/BurstinBubbles/Data/Sprites/road_horizontal.png", "road_horizontal");
+	LoadTexture("D:/Dropbox/NHTV/Intake/BurstinBubbles/BurstinBubbles/Data/Sprites/road_empty.png", "road_empty");
 	
 	LoadSound("D:/Dropbox/NHTV/Intake/BurstinBubbles/BurstinBubbles/Data/Sounds/shoot.wav", "shoot");
 	LoadSound("D:/Dropbox/NHTV/Intake/BurstinBubbles/BurstinBubbles/Data/Sounds/shoot_enemy.wav", "shoot_enemy");

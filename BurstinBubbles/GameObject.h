@@ -19,7 +19,7 @@ public:
 	virtual void Update(float);
 	virtual void Die(void);
 	virtual void Hit(GameObject* other);
-	virtual std::string GetName(void);
+	std::string GetName(void);
 	void LoadFromPath(std::string);
 	Collider* m_collider;
 protected:

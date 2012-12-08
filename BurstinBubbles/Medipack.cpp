@@ -17,7 +17,6 @@ void Medipack::Hit(GameObject* other)
 	if(other->GetType() != "Bullet" && other->GetType() != "Enemy")
 	{
 		m_bIsDead = true;
-		std::cout << "gayporn";
 	}
 }
 
