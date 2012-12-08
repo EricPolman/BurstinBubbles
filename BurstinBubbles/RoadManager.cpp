@@ -56,7 +56,7 @@ void RoadManager::Generate(void)
 			}
 			else
 			{
-				roadPieces[x][y] = new GameObject("road_empty");
+				roadPieces[x][y] = new GameObject("field_grass");
 			}
 			
 			roadPieces[x][y]->move((m_iGridSizeX / 2.0f * -512) + 512 * x, (m_iGridSizeY / 2.0f * -768) + 768 * y);
