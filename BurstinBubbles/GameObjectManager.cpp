@@ -11,7 +11,7 @@ GameObjectManager::GameObjectManager(void)
 	m_gameObjects.reserve(200);
 	GameObject* testingGrounds = new GameObject("testing_ground");
 	testingGrounds->m_bIsCollidable = false;
-	Add(testingGrounds); 
+	//Add(testingGrounds); 
 	
 	for(int i = 0; i < 6; i++)
 	{

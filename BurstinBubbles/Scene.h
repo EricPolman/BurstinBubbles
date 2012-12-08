@@ -1,5 +1,6 @@
 #pragma once
 #include "GameObjectManager.h"
+#include "RoadManager.h"
 #include "SFML/Graphics.hpp"
 #include "Enemy.h"
 
@@ -10,6 +11,8 @@ public:
 	~Scene(void);
 
 	GameObjectManager* m_GameObjectManager;
+	RoadManager* m_roadManager;
+
 	void Update(float);
 	void LoadFromFile(std::string);
 	void Draw(sf::RenderWindow*);

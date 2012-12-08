@@ -15,6 +15,7 @@ GameObject::GameObject(std::string imagePath, bool circularCollision)
 	m_bIsDead = false;
 	m_bIsCollidable = true;
 	m_fHealth = 100;
+	m_name = imagePath;
 	if(circularCollision)
 	{
 		m_collider = new Collider(&(getPosition()), getTextureRect().width / 2.0f);
@@ -70,4 +71,10 @@ void GameObject::Hit(GameObject* other)
 std::string GameObject::GetType(void)
 {
 	return "GameObject";
+}
+
+
+std::string GameObject::GetName(void)
+{
+	return m_name;
 }

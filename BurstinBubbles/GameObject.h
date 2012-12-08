@@ -19,12 +19,12 @@ public:
 	virtual void Update(float);
 	virtual void Die(void);
 	virtual void Hit(GameObject* other);
-
+	virtual std::string GetName(void);
 	void LoadFromPath(std::string);
-	
 	Collider* m_collider;
 protected:
 	float m_fMaximumSpeed;
 	float m_fRotation;
+	std::string m_name;
 	sf::Texture *texture;
 };

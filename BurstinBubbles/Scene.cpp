@@ -17,6 +17,9 @@ Scene::Scene(void)
 	Enemy::fSPAWNED_ENEMIES_PER_SCENE = 0;
 
 	m_GameObjectManager = new GameObjectManager();
+	m_roadManager = new RoadManager();
+	m_roadManager->Generate();
+
 	m_font = new sf::Font();
 	m_font->loadFromFile("D:/Dropbox/NHTV/Intake/BurstinBubbles/BurstinBubbles/Data/Fonts/defused.ttf");
 
@@ -64,6 +67,7 @@ void Scene::Update(float fDeltaTime)
 		m_GameObjectManager->Update(fDeltaTime);
 		if(m_bCameraFollowsPlayer)
 		{
+			m_roadManager->AlignToPlayer(m_GameObjectManager->m_player);
 			m_GameObjectManager->CenterPlayer();
 		}
 	}
@@ -76,7 +80,9 @@ void Scene::Update(float fDeltaTime)
 
 void Scene::Draw(sf::RenderWindow *window)
 {
+	m_roadManager->Draw(window);
 	m_GameObjectManager->Draw(window);
+	
 	window->draw(m_lifeBarRed);
 	m_lifeBar.setTextureRect(sf::IntRect(0,0, (m_GameObjectManager->m_player->m_fHealth / 100) * m_lifeBarRed.getTextureRect().width,m_lifeBarRed.getTextureRect().height));
 	window->draw(m_lifeBar);
