@@ -38,11 +38,11 @@ Scene::Scene(void)
 		}
 	}
 
-	for(int i = 0; i < 10; i++)
+	for(int i = 0; i < 20; i++)
 	{
 		Medipack* medipack = new Medipack();
-		float x = -512 * ((m_roadManager->m_iGridSizeX - 2) / 2) + MathHelper::Random() * (m_roadManager->m_iGridSizeX - 4);
-		float y = -768 * ((m_roadManager->m_iGridSizeY - 2) / 2) + MathHelper::Random() * (m_roadManager->m_iGridSizeY - 4);
+		float x = -512 * ((m_roadManager->m_iGridSizeX - 1) / 2) + MathHelper::Random() * (m_roadManager->m_iGridSizeX - 2) * 512;
+		float y = -768 * ((m_roadManager->m_iGridSizeY - 1) / 2) + MathHelper::Random() * (m_roadManager->m_iGridSizeY - 2) * 768;
 
 		medipack->setPosition(x, y);
 		m_GameObjectManager->Add(medipack);
@@ -56,8 +56,22 @@ Scene::Scene(void)
 	}
 
 	GameObject* pond = new GameObject("pond");
-	pond->move(-400, 400);
+	pond->move(400, 800);
 	m_GameObjectManager->Add(pond);
+
+	Player* player = new Player("player");
+	m_GameObjectManager->Add(player);
+	m_GameObjectManager->m_player = player; 
+	Enemy::g_player = player;
+
+	for(int i = 0; i < Enemy::fMAX_ACTIVE_ENEMIES / 2; i++)
+	{
+		Enemy* enemy = new Enemy();
+		float degree = ((360/ Enemy::fMAX_ACTIVE_ENEMIES / 2) * i) * PI / 180;
+		sf::Vector2f newPos(cos(degree), sin(degree));
+		enemy->move(newPos * 800.0f);
+		m_GameObjectManager->Add(enemy);
+	}
 
 	m_font = new sf::Font();
 	m_font->loadFromFile("D:/Dropbox/NHTV/Intake/BurstinBubbles/BurstinBubbles/Data/Fonts/defused.ttf");
@@ -71,12 +85,14 @@ Scene::Scene(void)
 	std::string temp = "Starting";
 	m_killText.setString(temp);
 
-	m_killText.setPosition(SCREEN_WIDTH - m_skull.getTextureRect().width - 180, 0);
+	m_killText.setPosition(SCREEN_WIDTH - 300, 0);
 	m_killText.setFont(*m_font);
 	m_killText.setCharacterSize(24);
 	m_killText.setColor(sf::Color::Black);
 
-	m_bCameraFollowsPlayer = true;
+	m_bCameraFollowsPlayerX = true;
+	m_bCameraFollowsPlayerY = true;
+
 	m_bPlayerIsDead = false;
 
 	m_lifeBar.setTexture(*TextureManager::getInstance()->m_Textures["lifebar"]);
@@ -101,16 +117,51 @@ void Scene::Update(float fDeltaTime)
 	if(m_bScenePlaying)
 	{
 		m_GameObjectManager->Update(fDeltaTime);
-		if(m_bCameraFollowsPlayer)
+		
+		m_roadManager->AlignToPlayer(m_GameObjectManager->m_player, m_bCameraFollowsPlayerX, m_bCameraFollowsPlayerY);
+		m_GameObjectManager->CenterPlayer(m_bCameraFollowsPlayerX, m_bCameraFollowsPlayerY);
+		
+
+		if(m_roadManager->roadPieces[0][0]->getPosition().x > 256)
 		{
-			m_roadManager->AlignToPlayer(m_GameObjectManager->m_player);
-			m_GameObjectManager->CenterPlayer();
+			m_bCameraFollowsPlayerX = false;
+			if(m_GameObjectManager->m_player->getPosition().x > SCREEN_WIDTH / 2 + 1)
+			{
+				m_bCameraFollowsPlayerX = true;
+			}
+		}		
+		else if(m_roadManager->roadPieces[m_roadManager->m_iGridSizeX-1][0]->getPosition().x < SCREEN_WIDTH - 256)
+		{
+			m_bCameraFollowsPlayerX = false;
+			if(m_GameObjectManager->m_player->getPosition().x < SCREEN_WIDTH / 2 - 1)
+			{
+				m_bCameraFollowsPlayerX = true;
+			}
 		}
+
+		if(m_roadManager->roadPieces[0][0]->getPosition().y > 256)
+		{
+			m_bCameraFollowsPlayerY = false;
+			if(m_GameObjectManager->m_player->getPosition().y > SCREEN_HEIGHT / 2 + 1)
+			{
+				m_bCameraFollowsPlayerY = true;
+			}
+		}		
+		else if(m_roadManager->roadPieces[0][m_roadManager->m_iGridSizeY-1]->getPosition().y < SCREEN_HEIGHT - 256)
+		{
+			m_bCameraFollowsPlayerY = false;
+			if(m_GameObjectManager->m_player->getPosition().y < SCREEN_HEIGHT / 2 - 1)
+			{
+				m_bCameraFollowsPlayerY = true;
+			}
+		}	
 	}
+
 	if(m_GameObjectManager->m_player->m_bIsDead || Enemy::fCurrentEnemies == 0)
 	{
 		m_bPlayerIsDead = true;
 	}
+
 }
 
 

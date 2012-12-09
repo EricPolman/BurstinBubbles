@@ -39,7 +39,6 @@ SceneManager::SceneManager(void)
 	
 	LoadScene("Data\\Scenes\\default.scene");
 
-	
 	m_loadingScreen.setTexture(*TextureManager::getInstance()->m_Textures["loadingscreen"]);
 	m_loadingScreen.setOrigin(m_loadingScreen.getTextureRect().width / 2,m_loadingScreen.getTextureRect().height / 2);
 	m_loadingScreen.setPosition(SCREEN_WIDTH / 2, SCREEN_HEIGHT / 2);

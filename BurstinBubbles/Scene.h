@@ -20,7 +20,6 @@ public:
 
 	sf::Sprite m_lifeBar;
 	sf::Sprite m_lifeBarRed;
-	sf::Sprite m_skull;
 
 	bool m_bPlayerIsDead;
 	bool m_bScenePlaying;
@@ -30,6 +29,7 @@ public:
 	sf::Text m_killText;
 
 private:
-	bool m_bCameraFollowsPlayer;
+	bool m_bCameraFollowsPlayerX;
+	bool m_bCameraFollowsPlayerY;
 };
 

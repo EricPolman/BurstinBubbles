@@ -8,20 +8,6 @@ GameObjectManager::GameObjectManager(void)
 {
 	m_gameObjects.clear();
 	m_gameObjects.reserve(200);
-	
-	Player* player = new Player("player");
-	Add(player);
-	m_player = player; 
-	Enemy::g_player = player;
-
-	for(int i = 0; i < Enemy::fMAX_ACTIVE_ENEMIES / 2; i++)
-	{
-		Enemy* enemy = new Enemy();
-		float degree = ((360/ Enemy::fMAX_ACTIVE_ENEMIES / 2) * i) * PI / 180;
-		sf::Vector2f newPos(cos(degree), sin(degree));
-		enemy->move(newPos * 800.0f);
-		Add(enemy);
-	}
 }
 
 
@@ -126,10 +112,15 @@ void GameObjectManager::Update(float fDeltaTime)
 	}
 }
 
-void GameObjectManager::CenterPlayer(void)
+void GameObjectManager::CenterPlayer(bool alignX, bool alignY)
 {
 	sf::Vector2f center(SCREEN_WIDTH / 2, SCREEN_HEIGHT / 2);
 	sf::Vector2f translation = center - m_player->getPosition();
+	
+	if(!alignX)
+		translation.x = 0;
+	if(!alignY)
+		translation.y = 0;
 
 	for(std::vector<GameObject*>::iterator i = m_gameObjects.begin(); i != m_gameObjects.end(); ++i )
 	{
@@ -137,7 +128,22 @@ void GameObjectManager::CenterPlayer(void)
 			(*i)->move(translation);
 	}
 
-	m_player->setPosition(center);
+	if(alignX)
+		m_player->setPosition(SCREEN_WIDTH / 2, m_player->getPosition().y);
+	if(alignY)
+		m_player->setPosition(m_player->getPosition().x, SCREEN_HEIGHT / 2);
+
+	if(m_player->getPosition().x < 0 + m_player->getTextureRect().width / 2)
+		m_player->setPosition(m_player->getTextureRect().width / 2, m_player->getPosition().y);
+	if(m_player->getPosition().y < 0 + m_player->getTextureRect().height / 2)
+		m_player->setPosition(m_player->getPosition().x, m_player->getTextureRect().height / 2);
+	if(m_player->getPosition().x > SCREEN_WIDTH - m_player->getTextureRect().width / 2)
+		m_player->setPosition(SCREEN_WIDTH - m_player->getTextureRect().width / 2, m_player->getPosition().y);
+	if(m_player->getPosition().y > SCREEN_HEIGHT - m_player->getTextureRect().height / 2)
+		m_player->setPosition(m_player->getPosition().x, SCREEN_HEIGHT - m_player->getTextureRect().height / 2);
+
+
+
 }
 
 

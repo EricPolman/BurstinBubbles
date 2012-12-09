@@ -16,7 +16,7 @@ public:
 	void Remove(GameObject*);
 	void Add(GameObject*);
 	Player* m_player;
-	void CenterPlayer(void);
+	void CenterPlayer(bool alignX, bool alignY);
 private:
 	std::vector<GameObject*> m_gameObjects;
 	

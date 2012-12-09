@@ -15,5 +15,5 @@ public:
 
 	void Generate(void);
 	void Draw(sf::RenderWindow* window);
-	void AlignToPlayer(GameObject* player);
+	void AlignToPlayer(GameObject* player, bool alignX, bool alignY);
 };
