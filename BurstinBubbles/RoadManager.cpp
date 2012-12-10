@@ -4,8 +4,8 @@
 
 RoadManager::RoadManager()
 {
-	m_iGridSizeX = 7;
-	m_iGridSizeY = 7;
+	m_iGridSizeX = 9;
+	m_iGridSizeY = 9;
 }
 
 
@@ -21,7 +21,7 @@ RoadManager::RoadManager(const RoadManager& other)
 
 void RoadManager::AlignToPlayer(GameObject* player, bool alignX, bool alignY)
 {
-	sf::Vector2f center(SCREEN_WIDTH / 2, SCREEN_HEIGHT / 2);
+	sf::Vector2f center(SettingHelper::g_iWindowWidth / 2, SettingHelper::g_iWindowHeight / 2);
 	sf::Vector2f translation = center - player->getPosition();
 
 	if(!alignX)

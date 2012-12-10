@@ -19,8 +19,7 @@ public:
 
 	static int fMAX_ACTIVE_ENEMIES;
 	static int fCurrentEnemies;
-	static int fTOTAL_ENEMIES_PER_SCENE;
-	static int fSPAWNED_ENEMIES_PER_SCENE;
+	static int fKilledEnemies;
 private:
 	float m_fShootTimer;
 };

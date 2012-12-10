@@ -75,6 +75,9 @@
     <ClInclude Include="RoadManager.h">
       <Filter>Header Files</Filter>
     </ClInclude>
+    <ClInclude Include="SettingHelper.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="stdafx.cpp">
@@ -132,6 +135,9 @@
       <Filter>Source Files</Filter>
     </ClCompile>
     <ClCompile Include="RoadManager.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="SettingHelper.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
   </ItemGroup>

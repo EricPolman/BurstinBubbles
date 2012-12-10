@@ -8,7 +8,6 @@ float fSHOOT_TIME = 0.8f;
 Enemy::Enemy(void) : GameObject("enemy")
 {
 	Enemy::fCurrentEnemies++;
-	Enemy::fSPAWNED_ENEMIES_PER_SCENE++;
 	delete m_collider;
 	m_collider = new Collider(&(getPosition()), getTextureRect().width / 2.0f);
 	fSHOOT_TIME = 0.6f + MathHelper::Random(0.6f);
@@ -31,6 +30,7 @@ Enemy::~Enemy(void)
 void Enemy::Die(void)
 {
 	//Enemy::fCurrentEnemies = 0;
+	fKilledEnemies++;
 }
 
 
@@ -49,6 +49,7 @@ void Enemy::Update(float fDeltaTime)
 	setRotation(newRot);
 
 	m_fShootTimer += fDeltaTime;
+	
 	if(MathHelper::Distance(g_player->getPosition(), getPosition()) > 350)
 	{
 		move(MathHelper::Normalize(g_player->getPosition() - getPosition()) * m_fMaximumSpeed * fDeltaTime);
@@ -74,7 +75,6 @@ void Enemy::Update(float fDeltaTime)
 		m_bIsDead = true;
 	}
 }
-
 
 void Enemy::Hit(GameObject* other)
 {
@@ -131,7 +131,7 @@ void Enemy::Hit(GameObject* other)
 	{
 		if(((Bullet*)(other))->m_owner != this)
 		{
-			m_fHealth -= 10;
+			m_fHealth -= 15;
 			SoundManager::getInstance()->Play("impact_body", 0.5f, true);
 		}
 	}

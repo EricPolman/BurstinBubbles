@@ -5,8 +5,7 @@
 
 int Enemy::fCurrentEnemies;
 int Enemy::fMAX_ACTIVE_ENEMIES;
-int Enemy::fTOTAL_ENEMIES_PER_SCENE;
-int Enemy::fSPAWNED_ENEMIES_PER_SCENE;
+int Enemy::fKilledEnemies;
 
 Scene::Scene(void)
 {
@@ -14,8 +13,7 @@ Scene::Scene(void)
 
 	Enemy::fCurrentEnemies = 0;
 	Enemy::fMAX_ACTIVE_ENEMIES = 12;
-	Enemy::fTOTAL_ENEMIES_PER_SCENE = 50;
-	Enemy::fSPAWNED_ENEMIES_PER_SCENE = 0;
+	Enemy::fKilledEnemies = 0;
 
 	m_GameObjectManager = new GameObjectManager();
 	m_roadManager = new RoadManager();
@@ -51,13 +49,13 @@ Scene::Scene(void)
 	{
 		GameObject* barrel = new GameObject("barrel");
 		
-		barrel->move(100 + i * 100.0f, -30 + (i%2 * 100));
+		barrel->move(100 + i * 100.0f, -300 + (i%2 * 100));
 		m_GameObjectManager->Add(barrel);
 	}
 
-	GameObject* pond = new GameObject("pond");
-	pond->move(400, 800);
-	m_GameObjectManager->Add(pond);
+	//GameObject* pond = new GameObject("pond");
+	//pond->move(400, 800);
+	//m_GameObjectManager->Add(pond);
 
 	Player* player = new Player("player");
 	m_GameObjectManager->Add(player);
@@ -85,7 +83,7 @@ Scene::Scene(void)
 	std::string temp = "Starting";
 	m_killText.setString(temp);
 
-	m_killText.setPosition(SCREEN_WIDTH - 300, 0);
+	m_killText.setPosition(SettingHelper::g_iWindowWidth - 200, 0);
 	m_killText.setFont(*m_font);
 	m_killText.setCharacterSize(24);
 	m_killText.setColor(sf::Color::Black);
@@ -125,15 +123,15 @@ void Scene::Update(float fDeltaTime)
 		if(m_roadManager->roadPieces[0][0]->getPosition().x > 256)
 		{
 			m_bCameraFollowsPlayerX = false;
-			if(m_GameObjectManager->m_player->getPosition().x > SCREEN_WIDTH / 2 + 1)
+			if(m_GameObjectManager->m_player->getPosition().x > SettingHelper::g_iWindowWidth / 2 + 1)
 			{
 				m_bCameraFollowsPlayerX = true;
 			}
 		}		
-		else if(m_roadManager->roadPieces[m_roadManager->m_iGridSizeX-1][0]->getPosition().x < SCREEN_WIDTH - 256)
+		else if(m_roadManager->roadPieces[m_roadManager->m_iGridSizeX-1][0]->getPosition().x < SettingHelper::g_iWindowWidth - 256)
 		{
 			m_bCameraFollowsPlayerX = false;
-			if(m_GameObjectManager->m_player->getPosition().x < SCREEN_WIDTH / 2 - 1)
+			if(m_GameObjectManager->m_player->getPosition().x < SettingHelper::g_iWindowWidth / 2 - 1)
 			{
 				m_bCameraFollowsPlayerX = true;
 			}
@@ -142,22 +140,22 @@ void Scene::Update(float fDeltaTime)
 		if(m_roadManager->roadPieces[0][0]->getPosition().y > 256)
 		{
 			m_bCameraFollowsPlayerY = false;
-			if(m_GameObjectManager->m_player->getPosition().y > SCREEN_HEIGHT / 2 + 1)
+			if(m_GameObjectManager->m_player->getPosition().y > SettingHelper::g_iWindowHeight / 2 + 1)
 			{
 				m_bCameraFollowsPlayerY = true;
 			}
 		}		
-		else if(m_roadManager->roadPieces[0][m_roadManager->m_iGridSizeY-1]->getPosition().y < SCREEN_HEIGHT - 256)
+		else if(m_roadManager->roadPieces[0][m_roadManager->m_iGridSizeY-1]->getPosition().y < SettingHelper::g_iWindowHeight - 256)
 		{
 			m_bCameraFollowsPlayerY = false;
-			if(m_GameObjectManager->m_player->getPosition().y < SCREEN_HEIGHT / 2 - 1)
+			if(m_GameObjectManager->m_player->getPosition().y < SettingHelper::g_iWindowHeight / 2 - 1)
 			{
 				m_bCameraFollowsPlayerY = true;
 			}
 		}	
 	}
 
-	if(m_GameObjectManager->m_player->m_bIsDead || Enemy::fCurrentEnemies == 0)
+	if(m_GameObjectManager->m_player->m_bIsDead)
 	{
 		m_bPlayerIsDead = true;
 	}
@@ -174,9 +172,9 @@ void Scene::Draw(sf::RenderWindow *window)
 	m_lifeBar.setTextureRect(sf::IntRect(0,0, (m_GameObjectManager->m_player->m_fHealth / 100) * m_lifeBarRed.getTextureRect().width,m_lifeBarRed.getTextureRect().height));
 	window->draw(m_lifeBar);
 	window->draw(m_lifebarText);
-	int killText = Enemy::fCurrentEnemies + (Enemy::fTOTAL_ENEMIES_PER_SCENE - Enemy::fSPAWNED_ENEMIES_PER_SCENE);
+	int killText = Enemy::fKilledEnemies;
 	char temp[256];
-	sprintf(temp, "%d enemies left", killText);
+	sprintf(temp, "%d kills", killText);
 	m_killText.setString(temp);
 	window->draw(m_killText);
 

@@ -6,6 +6,8 @@
 #include "SoundManager.h"
 
 float fRESTART_TIME = 5;
+int pointCounter = 1;
+int pointClock = 2;
 
 SceneManager::SceneManager(void)
 {
@@ -38,10 +40,15 @@ SceneManager::SceneManager(void)
 	LoadSound("D:/Dropbox/NHTV/Intake/BurstinBubbles/BurstinBubbles/Data/Sounds/background_scene1.wav", "background_scene1", true);
 	
 	LoadScene("Data\\Scenes\\default.scene");
+	m_loadingText.setString("Loading...");
+	m_loadingText.setColor(sf::Color::Black);
+	m_loadingText.move(SettingHelper::g_iWindowWidth / 2 - 85, SettingHelper::g_iWindowHeight - 150);
+	m_loadingText.setFont(*m_currentScene->m_font);
+	m_loadingText.setCharacterSize(24);
 
 	m_loadingScreen.setTexture(*TextureManager::getInstance()->m_Textures["loadingscreen"]);
 	m_loadingScreen.setOrigin(m_loadingScreen.getTextureRect().width / 2,m_loadingScreen.getTextureRect().height / 2);
-	m_loadingScreen.setPosition(SCREEN_WIDTH / 2, SCREEN_HEIGHT / 2);
+	m_loadingScreen.setPosition(SettingHelper::g_iWindowWidth / 2, SettingHelper::g_iWindowHeight / 2);
 }
 
 
@@ -112,5 +119,21 @@ void SceneManager::Draw(sf::RenderWindow *window)
 	else
 	{
 		window->draw(m_loadingScreen);
+		pointClock++;
+		if(pointClock % 240 == 0)
+		{
+			pointClock = 2;
+			pointCounter++;
+			if(pointCounter % 5 == 0)
+			{
+				pointCounter = 1;
+			}
+		}
+		m_loadingText.setString("Loading");
+		for(int i = 0; i < pointCounter - 1; i++)
+		{
+			m_loadingText.setString(m_loadingText.getString() + ".");
+		}
+		window->draw(m_loadingText);
 	}
 }

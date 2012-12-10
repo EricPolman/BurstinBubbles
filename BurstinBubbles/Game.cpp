@@ -9,12 +9,9 @@ float fTimerDraw = 0;
 float fTIME = (1.0f / 60.0f);
 float fDT = 0;
 
-
 Game::Game(void)
 {
 	sceneManager = new SceneManager();
-	//g_iWindowWidth = 100;
-	//g_iWindowHeight = 100;
 }
 
 

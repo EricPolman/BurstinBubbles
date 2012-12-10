@@ -8,7 +8,7 @@ public:
 	RoadManager(const RoadManager&);
 	~RoadManager(void);
 	
-	GameObject* roadPieces[7][7];
+	GameObject* roadPieces[9][9];
 	
 	int m_iGridSizeX;
 	int m_iGridSizeY;
