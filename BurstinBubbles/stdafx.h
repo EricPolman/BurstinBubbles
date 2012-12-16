@@ -13,6 +13,7 @@
 #include "SettingHelper.h"
 #include "SFML/Audio.hpp"
 #include "SFML\Graphics.hpp"
+#include <Windows.h>
 #define PI 3.14159265
 
 

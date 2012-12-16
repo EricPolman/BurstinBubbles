@@ -21,7 +21,6 @@ public:
 	sf::Sprite m_loadingScreen;
 	sf::Text m_loadingText;
 private:
-	std::string g_sRootPath;
 	std::vector<std::string> *m_loadableScenes;
 	Scene *m_currentScene;
 };

@@ -53,10 +53,6 @@ Scene::Scene(void)
 		m_GameObjectManager->Add(barrel);
 	}
 
-	//GameObject* pond = new GameObject("pond");
-	//pond->move(400, 800);
-	//m_GameObjectManager->Add(pond);
-
 	Player* player = new Player("player");
 	m_GameObjectManager->Add(player);
 	m_GameObjectManager->m_player = player; 
@@ -72,7 +68,7 @@ Scene::Scene(void)
 	}
 
 	m_font = new sf::Font();
-	m_font->loadFromFile("D:/Dropbox/NHTV/Intake/BurstinBubbles/BurstinBubbles/Data/Fonts/defused.ttf");
+	m_font->loadFromFile(SettingHelper::g_sRootPath + "/Data/Fonts/defused.ttf");
 
 	m_lifebarText.setString("Health");
 	m_lifebarText.move(20,0);

@@ -1,7 +1,6 @@
 #include "StdAfx.h"
 #include "SceneManager.h"
 #include "Scene.h"
-#include <direct.h>
 #include "TextureManager.h"
 #include "SoundManager.h"
 
@@ -11,33 +10,29 @@ int pointClock = 2;
 
 SceneManager::SceneManager(void)
 {
-	char CurrentPath[_MAX_PATH];
-    _getcwd(CurrentPath, _MAX_PATH);
-	g_sRootPath = CurrentPath;
-
-	LoadTexture("D:/Dropbox/NHTV/Intake/BurstinBubbles/BurstinBubbles/Data/Sprites/barrel.png", "barrel");
-	LoadTexture("D:/Dropbox/NHTV/Intake/BurstinBubbles/BurstinBubbles/Data/Sprites/player.png", "player");
-	LoadTexture("D:/Dropbox/NHTV/Intake/BurstinBubbles/BurstinBubbles/Data/Sprites/tree.png", "tree");
-	LoadTexture("D:/Dropbox/NHTV/Intake/BurstinBubbles/BurstinBubbles/Data/Sprites/bullet.png", "bullet");
-	LoadTexture("D:/Dropbox/NHTV/Intake/BurstinBubbles/BurstinBubbles/Data/Sprites/enemy.png", "enemy");
-	LoadTexture("D:/Dropbox/NHTV/Intake/BurstinBubbles/BurstinBubbles/Data/Sprites/loadingscreen.png", "loadingscreen");
-	LoadTexture("D:/Dropbox/NHTV/Intake/BurstinBubbles/BurstinBubbles/Data/Sprites/lifebar.png", "lifebar");
-	LoadTexture("D:/Dropbox/NHTV/Intake/BurstinBubbles/BurstinBubbles/Data/Sprites/lifebar_red.png", "lifebarred");
-	LoadTexture("D:/Dropbox/NHTV/Intake/BurstinBubbles/BurstinBubbles/Data/Sprites/pond.png", "pond");
-	LoadTexture("D:/Dropbox/NHTV/Intake/BurstinBubbles/BurstinBubbles/Data/Sprites/square.png", "square");
-	LoadTexture("D:/Dropbox/NHTV/Intake/BurstinBubbles/BurstinBubbles/Data/Sprites/medipack.png", "medipack");
-	LoadTexture("D:/Dropbox/NHTV/Intake/BurstinBubbles/BurstinBubbles/Data/Sprites/road_intersection.png", "road_intersection");
-	LoadTexture("D:/Dropbox/NHTV/Intake/BurstinBubbles/BurstinBubbles/Data/Sprites/road_vertical.png", "road_vertical");
-	LoadTexture("D:/Dropbox/NHTV/Intake/BurstinBubbles/BurstinBubbles/Data/Sprites/road_horizontal.png", "road_horizontal");
-	LoadTexture("D:/Dropbox/NHTV/Intake/BurstinBubbles/BurstinBubbles/Data/Sprites/field_grass.png", "field_grass");
+	LoadTexture(SettingHelper::g_sRootPath + "/Data/Sprites/barrel.png", "barrel");
+	LoadTexture(SettingHelper::g_sRootPath + "/Data/Sprites/player.png", "player");
+	LoadTexture(SettingHelper::g_sRootPath + "/Data/Sprites/tree.png", "tree");
+	LoadTexture(SettingHelper::g_sRootPath + "/Data/Sprites/bullet.png", "bullet");
+	LoadTexture(SettingHelper::g_sRootPath + "/Data/Sprites/enemy.png", "enemy");
+	LoadTexture(SettingHelper::g_sRootPath + "/Data/Sprites/loadingscreen.png", "loadingscreen");
+	LoadTexture(SettingHelper::g_sRootPath + "/Data/Sprites/lifebar.png", "lifebar");
+	LoadTexture(SettingHelper::g_sRootPath + "/Data/Sprites/lifebar_red.png", "lifebarred");
+	LoadTexture(SettingHelper::g_sRootPath + "/Data/Sprites/pond.png", "pond");
+	LoadTexture(SettingHelper::g_sRootPath + "/Data/Sprites/square.png", "square");
+	LoadTexture(SettingHelper::g_sRootPath + "/Data/Sprites/medipack.png", "medipack");
+	LoadTexture(SettingHelper::g_sRootPath + "/Data/Sprites/road_intersection.png", "road_intersection");
+	LoadTexture(SettingHelper::g_sRootPath + "/Data/Sprites/road_vertical.png", "road_vertical");
+	LoadTexture(SettingHelper::g_sRootPath + "/Data/Sprites/road_horizontal.png", "road_horizontal");
+	LoadTexture(SettingHelper::g_sRootPath + "/Data/Sprites/field_grass.png", "field_grass");
 	
-	LoadSound("D:/Dropbox/NHTV/Intake/BurstinBubbles/BurstinBubbles/Data/Sounds/shoot.wav", "shoot");
-	LoadSound("D:/Dropbox/NHTV/Intake/BurstinBubbles/BurstinBubbles/Data/Sounds/shoot_enemy.wav", "shoot_enemy");
-	LoadSound("D:/Dropbox/NHTV/Intake/BurstinBubbles/BurstinBubbles/Data/Sounds/impact_body.wav", "impact_body");
-	LoadSound("D:/Dropbox/NHTV/Intake/BurstinBubbles/BurstinBubbles/Data/Sounds/impact_body_player1.wav", "impact_body_player1");
-	LoadSound("D:/Dropbox/NHTV/Intake/BurstinBubbles/BurstinBubbles/Data/Sounds/impact_body_player2.wav", "impact_body_player2");
-	LoadSound("D:/Dropbox/NHTV/Intake/BurstinBubbles/BurstinBubbles/Data/Sounds/background_loading.wav", "background_loading", true);
-	LoadSound("D:/Dropbox/NHTV/Intake/BurstinBubbles/BurstinBubbles/Data/Sounds/background_scene1.wav", "background_scene1", true);
+	LoadSound(SettingHelper::g_sRootPath + "/Data/Sounds/shoot.wav", "shoot");
+	LoadSound(SettingHelper::g_sRootPath + "/Data/Sounds/shoot_enemy.wav", "shoot_enemy");
+	LoadSound(SettingHelper::g_sRootPath + "/Data/Sounds/impact_body.wav", "impact_body");
+	LoadSound(SettingHelper::g_sRootPath + "/Data/Sounds/impact_body_player1.wav", "impact_body_player1");
+	LoadSound(SettingHelper::g_sRootPath + "/Data/Sounds/impact_body_player2.wav", "impact_body_player2");
+	LoadSound(SettingHelper::g_sRootPath + "/Data/Sounds/background_loading.wav", "background_loading", true);
+	LoadSound(SettingHelper::g_sRootPath + "/Data/Sounds/background_scene1.wav", "background_scene1", true);
 	
 	LoadScene("Data\\Scenes\\default.scene");
 	m_loadingText.setString("Loading...");

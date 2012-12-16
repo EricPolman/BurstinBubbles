@@ -8,6 +8,7 @@ int SettingHelper::g_iWindowHeight = 0;
 
 int main()
 {
+	SettingHelper::GetRootPath();
 	sf::RenderWindow Window(sf::VideoMode::getFullscreenModes()[0], "Burstin' Bubbles", sf::Style::Fullscreen);
     sf::Clock deltaClock;
 	SettingHelper::g_iWindowWidth = Window.getSize().x;

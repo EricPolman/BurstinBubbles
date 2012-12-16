@@ -50,6 +50,10 @@ void Player::Update(float fDeltaTime)
 	GameObject::Update(fDeltaTime);
 
 	sf::Vector2f dir(sf::Vector2f(m_mousePosition.x,m_mousePosition.y) - getPosition());
+	if(dir.x == 0 && dir.y == 0)
+	{
+		dir.y = 1;
+	}
 	dir = MathHelper::Normalize(dir);
 
 	float newRot = asinf(dir.x) * 180 / PI;
