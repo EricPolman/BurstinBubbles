@@ -14,7 +14,7 @@ Medipack::~Medipack(void)
 
 void Medipack::Hit(GameObject* other)
 {
-	if(other->GetType() != "Bullet" && other->GetType() != "Enemy")
+	if(other->GetType() == "Player")
 	{
 		m_bIsDead = true;
 	}

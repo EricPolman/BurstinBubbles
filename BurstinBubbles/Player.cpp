@@ -130,11 +130,14 @@ void Player::Hit(GameObject* other)
 {
 	if(other->GetType() != "Bullet")
 	{
-		if(other->GetType() == "Medipack")
+		if(other->GetType() == "Medipack" && !other->m_bIsDead)
 		{
+			other->m_bIsDead = true;
 			m_fHealth += 50;
 			if(m_fHealth > 100)
+			{
 				m_fHealth = 100;
+			}
 		}
 		if(other->m_collider->IsCircular)
 		{

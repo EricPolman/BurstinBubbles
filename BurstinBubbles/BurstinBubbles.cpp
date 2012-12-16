@@ -13,7 +13,7 @@ int main()
     sf::Clock deltaClock;
 	SettingHelper::g_iWindowWidth = Window.getSize().x;
 	SettingHelper::g_iWindowHeight = Window.getSize().y;
-        
+    
 	Game game;
 	
     while (Window.isOpen())

@@ -4,8 +4,8 @@
 
 RoadManager::RoadManager()
 {
-	m_iGridSizeX = 9;
-	m_iGridSizeY = 9;
+	m_iGridSizeX = 5;
+	m_iGridSizeY = 5;
 }
 
 
