@@ -18,8 +18,6 @@ SceneManager::SceneManager(void)
 	LoadTexture(SettingHelper::g_sRootPath + "/Data/Sprites/loadingscreen.png", "loadingscreen");
 	LoadTexture(SettingHelper::g_sRootPath + "/Data/Sprites/lifebar.png", "lifebar");
 	LoadTexture(SettingHelper::g_sRootPath + "/Data/Sprites/lifebar_red.png", "lifebarred");
-	LoadTexture(SettingHelper::g_sRootPath + "/Data/Sprites/pond.png", "pond");
-	LoadTexture(SettingHelper::g_sRootPath + "/Data/Sprites/square.png", "square");
 	LoadTexture(SettingHelper::g_sRootPath + "/Data/Sprites/medipack.png", "medipack");
 	LoadTexture(SettingHelper::g_sRootPath + "/Data/Sprites/road_intersection.png", "road_intersection");
 	LoadTexture(SettingHelper::g_sRootPath + "/Data/Sprites/road_vertical.png", "road_vertical");

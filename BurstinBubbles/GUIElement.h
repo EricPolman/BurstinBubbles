@@ -1,11 +1,13 @@
 #pragma once
-#include "SFML\Graphics.hpp"
+#include "GameObject.h"
 
 class GUIElement :
-	public sf::Sprite
+	public GameObject
 {
 public:
 	GUIElement(void);
 	virtual ~GUIElement(void);
+
+	virtual void Update(float fDeltaTime, sf::Vector2f mousePosition);
 };
 

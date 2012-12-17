@@ -10,3 +10,9 @@ GUIElement::GUIElement(void)
 GUIElement::~GUIElement(void)
 {
 }
+
+
+void GUIElement::Update(float fDeltaTime, sf::Vector2f mousePosition)
+{
+
+}

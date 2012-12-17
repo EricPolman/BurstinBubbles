@@ -93,6 +93,7 @@
     <ClInclude Include="GUIManager.h" />
     <ClInclude Include="MathHelper.h" />
     <ClInclude Include="Medipack.h" />
+    <ClInclude Include="MenuView.h" />
     <ClInclude Include="Player.h" />
     <ClInclude Include="RoadManager.h" />
     <ClInclude Include="Scene.h" />
@@ -116,6 +117,7 @@
     <ClCompile Include="GUIManager.cpp" />
     <ClCompile Include="MathHelper.cpp" />
     <ClCompile Include="Medipack.cpp" />
+    <ClCompile Include="MenuView.cpp" />
     <ClCompile Include="Player.cpp" />
     <ClCompile Include="RoadManager.cpp" />
     <ClCompile Include="Scene.cpp" />
