@@ -1,5 +1,6 @@
 #pragma once
 #include "GameObject.h"
+#include "TextureManager.h"
 
 class GUIElement :
 	public GameObject

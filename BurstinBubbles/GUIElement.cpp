@@ -2,7 +2,7 @@
 #include "GUIElement.h"
 
 
-GUIElement::GUIElement(void)
+GUIElement::GUIElement(void) : GameObject("button_normal")
 {
 }
 

@@ -11,8 +11,14 @@ public:
 	bool GetClicked(void);
 	bool GetHover(void);
 	bool GetDown(void);
-private:
+	void UpdateButtonRect(void);
 	bool m_bMouseDown;
 	bool m_bMouseHover;
 	bool m_bMouseClick;
+	bool m_bOldMouseDown;
+	bool m_bOldMouseHover;
+	bool m_bOldMouseClick;
+	bool intersectsRect(sf::Vector2i);
+private:
+	sf::IntRect m_buttonRect;
 };

@@ -15,7 +15,6 @@ SceneManager::SceneManager(void)
 	LoadTexture(SettingHelper::g_sRootPath + "/Data/Sprites/tree.png", "tree");
 	LoadTexture(SettingHelper::g_sRootPath + "/Data/Sprites/bullet.png", "bullet");
 	LoadTexture(SettingHelper::g_sRootPath + "/Data/Sprites/enemy.png", "enemy");
-	LoadTexture(SettingHelper::g_sRootPath + "/Data/Sprites/loadingscreen.png", "loadingscreen");
 	LoadTexture(SettingHelper::g_sRootPath + "/Data/Sprites/lifebar.png", "lifebar");
 	LoadTexture(SettingHelper::g_sRootPath + "/Data/Sprites/lifebar_red.png", "lifebarred");
 	LoadTexture(SettingHelper::g_sRootPath + "/Data/Sprites/medipack.png", "medipack");
@@ -111,7 +110,6 @@ void SceneManager::Draw(sf::RenderWindow *window)
 	}
 	else
 	{
-		window->draw(m_loadingScreen);
 		pointClock++;
 		if(pointClock % 240 == 0)
 		{
