@@ -132,7 +132,7 @@ void Enemy::Hit(GameObject* other)
 		if(((Bullet*)(other))->m_owner != this)
 		{
 			m_fHealth -= 15;
-			SoundManager::getInstance()->Play("impact_body", 0.5f, true);
+			SoundManager::getInstance()->Play("impact_body", 70.f, true);
 		}
 	}
 }
@@ -144,7 +144,7 @@ void Enemy::Shoot(void)
 	bullet->m_direction = sf::Vector2f(std::cos(PI * (getRotation() + (-9 + 18*MathHelper::Random()) - 90) / 180.0f), std::sin(PI * (getRotation() + (-9 + 18*MathHelper::Random()) - 90) / 180.0f));
 	bullet->setPosition(getPosition() + bullet->m_direction * (float)(getTextureRect().width / 2));
 	bullet->m_owner = this;
-	SoundManager::getInstance()->Play("shoot_enemy", 0.5f, true);
+	SoundManager::getInstance()->Play("shoot_enemy", 50.f, true);
 	m_bullets.push_back(bullet);
 }
 

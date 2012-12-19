@@ -11,6 +11,7 @@ Because all of this was way too much work for this assignment, I decided to make
 *	Aiming - Mouse movement
 *	Shooting - Left Mouse Button
 *	Walking - WASD
+*	Pause - Escape or P
 
 ##The process
 I am writing about the creation and design of this game on my blog (http://eric-polman.blogspot.com).
@@ -26,7 +27,8 @@ I also keep track of the code with Git & GitHub (https://github.com/EricPolman/B
 *	body_impact (http://www.freesfx.co.uk/download/?type=mp3&id=4888)
 *	body_impact_player1 (http://www.freesfx.co.uk/soundeffects/human-impact/)
 *	body_impact_player2 (http://www.freesfx.co.uk/soundeffects/human-impact/)
-*	background_loading (http://free-loops.com/2948-elevator-music.html)
+*	background_loading (http://www.flashkit.com/loops/Easy_Listening/Smooth_S-Marcomed-10377)
+*	background_scene1 (http://free-loops.com/5188-phat-jungle.html)
 
 ###Code
 *	SFML (http://www.sfml-dev.org/)

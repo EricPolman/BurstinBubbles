@@ -74,7 +74,7 @@ Scene::Scene(void)
 	m_lifebarText.move(20,0);
 	m_lifebarText.setFont(*m_font);
 	m_lifebarText.setCharacterSize(16);
-	m_lifebarText.setColor(sf::Color::Black);
+	m_lifebarText.setColor(sf::Color::White);
 
 	std::string temp = "Starting";
 	m_killText.setString(temp);
@@ -82,7 +82,7 @@ Scene::Scene(void)
 	m_killText.setPosition(SettingHelper::g_iWindowWidth - 200, 0);
 	m_killText.setFont(*m_font);
 	m_killText.setCharacterSize(24);
-	m_killText.setColor(sf::Color::Black);
+	m_killText.setColor(sf::Color::White);
 
 	m_bCameraFollowsPlayerX = true;
 	m_bCameraFollowsPlayerY = true;

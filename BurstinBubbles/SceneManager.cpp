@@ -4,7 +4,7 @@
 #include "TextureManager.h"
 #include "SoundManager.h"
 
-float fRESTART_TIME = 5;
+float fRESTART_TIME = 3;
 int pointCounter = 1;
 int pointClock = 2;
 
@@ -38,6 +38,12 @@ SceneManager::SceneManager(void)
 	m_loadingText.setFont(*m_currentScene->m_font);
 	m_loadingText.setCharacterSize(24);
 
+	m_restartText.setString("Press 'Enter' to restart.");
+	m_restartText.setColor(sf::Color::White);
+	m_restartText.setCharacterSize(20);
+	m_restartText.setPosition(SettingHelper::g_iWindowWidth / 2 - m_restartText.getGlobalBounds().width / 2,
+							  SettingHelper::g_iWindowHeight / 2 - m_restartText.getGlobalBounds().height / 2 + 60);
+
 	m_loadingScreen.setTexture(*TextureManager::getInstance()->m_Textures["loadingscreen"]);
 	m_loadingScreen.setOrigin(m_loadingScreen.getTextureRect().width / 2,m_loadingScreen.getTextureRect().height / 2);
 	m_loadingScreen.setPosition(SettingHelper::g_iWindowWidth / 2, SettingHelper::g_iWindowHeight / 2);
@@ -66,12 +72,22 @@ void SceneManager::LoadSound(std::string path, std::string name, bool loop)
 
 void SceneManager::Update(float fDeltaTime)
 {
-	m_currentScene->Update(fDeltaTime);
 	if(m_currentScene->m_bPlayerIsDead)
 	{
-		delete m_currentScene;
-		LoadScene("");
-		//m_currentScene->LoadFromFile(g_sRootPath + "\\" + "Data\\Scenes\\default.scene");
+		m_currentScene->m_killText.setCharacterSize(60);
+		m_currentScene->m_killText.setColor(sf::Color::White);
+		m_currentScene->m_killText.setPosition(SettingHelper::g_iWindowWidth / 2 - m_currentScene->m_killText.getGlobalBounds().width / 2,
+											   SettingHelper::g_iWindowHeight / 2 - m_currentScene->m_killText.getGlobalBounds().height / 2);
+
+		if(sf::Keyboard::isKeyPressed(sf::Keyboard::Return))
+		{
+			delete m_currentScene;
+			LoadScene("");
+		}
+	}
+	else
+	{
+		m_currentScene->Update(fDeltaTime);
 	}
 	if(!m_currentScene->m_bScenePlaying)
 	{
@@ -93,7 +109,6 @@ void SceneManager::LoadScene(std::string sFile)
 	SoundManager::getInstance()->Play("background_loading");
 	m_fSceneRestartTimer = 0;
 	m_currentScene->m_bScenePlaying = false;
-	//m_currentScene->LoadFromFile(g_sRootPath + "\\" + sFile);
 }
 
 
@@ -107,6 +122,10 @@ void SceneManager::Draw(sf::RenderWindow *window)
 	if(m_currentScene->m_bScenePlaying)
 	{
 		m_currentScene->Draw(window);
+		if(m_currentScene->m_bPlayerIsDead)
+		{
+			window->draw(m_restartText);
+		}
 	}
 	else
 	{

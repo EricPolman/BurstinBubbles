@@ -1,5 +1,3 @@
-#include <SFML/Graphics.hpp>
-
 #include "stdafx.h"
 #include "Game.h"
 
@@ -8,6 +6,8 @@ int SettingHelper::g_iWindowHeight = 0;
 
 int main()
 {
+	HWND hWnd = GetConsoleWindow();
+	ShowWindow( hWnd, SW_HIDE );
 	SettingHelper::GetRootPath();
 	sf::RenderWindow Window(sf::VideoMode::getFullscreenModes()[0], "Burstin' Bubbles", sf::Style::Fullscreen);
     sf::Clock deltaClock;

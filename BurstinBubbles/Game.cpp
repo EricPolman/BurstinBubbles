@@ -9,6 +9,7 @@ float fDT = 0;
 Game::Game(void)
 {
 	m_bIsStarted = false;
+	m_bInstructionsOpen = false;
 	m_font = new sf::Font();
 	m_font->loadFromFile(SettingHelper::g_sRootPath + "/Data/Fonts/defused.ttf");
 	
@@ -42,6 +43,11 @@ Game::Game(void)
 	
 	menuView->LoadTexture(SettingHelper::g_sRootPath + "/Data/Sprites/loadingscreen.png", "loadingscreen");
 	m_beginImage.setTexture(*TextureManager::getInstance()->m_Textures["loadingscreen"]);
+	
+	menuView->LoadTexture(SettingHelper::g_sRootPath + "/Data/Sprites/instructions.png", "instructions");
+	m_instrImage.setTexture(*TextureManager::getInstance()->m_Textures["instructions"]);
+	m_instrImage.move(SettingHelper::g_iWindowWidth / 2 - m_instrImage.getTextureRect().width / 2,
+		SettingHelper::g_iWindowHeight / 2 - m_instrImage.getTextureRect().height / 2);
 	
 	sceneManager = new SceneManager();
 }
@@ -82,22 +88,48 @@ void Game::Draw(sf::RenderWindow* window)
 		window->draw(m_textExit);
 		window->draw(m_textStartGame);
 		window->draw(m_textInstructions);
-		if(menuView->m_guiButtons[0]->m_bOldMouseClick && !menuView->m_guiButtons[0]->m_bMouseClick && menuView->m_guiButtons[0]->intersectsRect(sf::Mouse::getPosition()))
+		if(!m_bInstructionsOpen)
 		{
-			m_bIsStarted = true;
+			if(menuView->m_guiButtons[0]->m_bOldMouseClick && !menuView->m_guiButtons[0]->m_bMouseClick && menuView->m_guiButtons[0]->intersectsRect(sf::Mouse::getPosition()))
+			{
+				m_bIsStarted = true;
+				if(!(SoundManager::getInstance()->m_sounds["background_scene1"]->getStatus() == sf::Sound::Playing))
+				{
+					SoundManager::getInstance()->m_sounds["background_loading"]->stop();
+					SoundManager::getInstance()->Play("background_scene1");
+				}
+			}
+			else if(menuView->m_guiButtons[1]->m_bOldMouseClick && !menuView->m_guiButtons[1]->m_bMouseClick && menuView->m_guiButtons[1]->intersectsRect(sf::Mouse::getPosition()))
+			{
+				m_bInstructionsOpen = true;
+			}
+			else if(menuView->m_guiButtons[2]->m_bOldMouseClick && !menuView->m_guiButtons[2]->m_bMouseClick && menuView->m_guiButtons[2]->intersectsRect(sf::Mouse::getPosition()))
+			{
+				window->close();
+			}
 		}
-		else if(menuView->m_guiButtons[2]->m_bOldMouseClick && !menuView->m_guiButtons[2]->m_bMouseClick && menuView->m_guiButtons[2]->intersectsRect(sf::Mouse::getPosition()))
+		else
 		{
-			window->close();
+			window->draw(m_instrImage);
+			if(sf::Keyboard::isKeyPressed(sf::Keyboard::Return))
+			{
+				m_bInstructionsOpen = false;
+			}
 		}
-		else if(menuView->m_guiButtons[2]->m_bOldMouseClick && !menuView->m_guiButtons[2]->m_bMouseClick && menuView->m_guiButtons[2]->intersectsRect(sf::Mouse::getPosition()))
-		{
-			window->close();
-		}
-		
 	}
 	else
 	{
 		sceneManager->Draw(window);
+
+		if(sf::Keyboard::isKeyPressed(sf::Keyboard::Escape) || sf::Keyboard::isKeyPressed(sf::Keyboard::P))
+		{
+			m_bIsStarted = false;
+			m_textStartGame.setString("Continue");
+			m_textStartGame.setPosition(SettingHelper::g_iWindowWidth / 2 - m_textStartGame.getGlobalBounds().width / 2, 
+					SettingHelper::g_iWindowHeight / 2 + 120 - m_textStartGame.getGlobalBounds().height / 2);
+
+			SoundManager::getInstance()->m_sounds["background_scene1"]->stop();
+			SoundManager::getInstance()->Play("background_loading");
+		}
 	}	
 }

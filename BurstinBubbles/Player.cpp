@@ -121,7 +121,7 @@ void Player::Shoot(void)
 	bullet->setPosition(getPosition() + bullet->m_direction * (float)(getTextureRect().width / 2));
 	bullet->m_owner = this;
 
-	SoundManager::getInstance()->Play("shoot", 0.8f, true);
+	SoundManager::getInstance()->Play("shoot", 80.f, true);
 	m_bullets.push_back(bullet);
 }
 
@@ -190,11 +190,11 @@ void Player::Hit(GameObject* other)
 		m_fHealth -= 8;
 		if(MathHelper::Random() < 0.5f)
 		{
-			SoundManager::getInstance()->Play("impact_body_player1", 1, true);
+			SoundManager::getInstance()->Play("impact_body_player1", 100, true);
 		}
 		else
 		{
-			SoundManager::getInstance()->Play("impact_body_player2", 1, true);
+			SoundManager::getInstance()->Play("impact_body_player2", 100, true);
 		}
 	}
 }

@@ -20,6 +20,7 @@ public:
 	
 	sf::Sprite m_loadingScreen;
 	sf::Text m_loadingText;
+	sf::Text m_restartText;
 private:
 	std::vector<std::string> *m_loadableScenes;
 	Scene *m_currentScene;

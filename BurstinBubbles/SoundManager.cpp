@@ -4,6 +4,7 @@
 
 SoundManager::SoundManager(void)
 {
+	sf::Listener::setGlobalVolume(100);
 }
 
 
