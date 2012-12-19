@@ -9,7 +9,7 @@ int main()
 	HWND hWnd = GetConsoleWindow();
 	ShowWindow( hWnd, SW_HIDE );
 	SettingHelper::GetRootPath();
-	sf::RenderWindow Window(sf::VideoMode::getFullscreenModes()[0], "Burstin' Bubbles", sf::Style::Resize | sf::Style::Fullscreen);
+	sf::RenderWindow Window(sf::VideoMode::getFullscreenModes()[0], "Burstin' Bubbles", sf::Style::Fullscreen);
     sf::Clock deltaClock;
 	SettingHelper::g_iWindowWidth = Window.getSize().x;
 	SettingHelper::g_iWindowHeight = Window.getSize().y;
