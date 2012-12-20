@@ -29,7 +29,6 @@ Enemy::~Enemy(void)
 
 void Enemy::Die(void)
 {
-	//Enemy::fCurrentEnemies = 0;
 	fKilledEnemies++;
 }
 

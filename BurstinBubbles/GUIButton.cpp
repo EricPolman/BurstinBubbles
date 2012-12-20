@@ -10,7 +10,6 @@ GUIButton::GUIButton(void) : GUIElement()
 	m_bOldMouseDown = false;
 	m_bOldMouseClick = false;
 	m_bOldMouseHover = false;
-
 }
 
 

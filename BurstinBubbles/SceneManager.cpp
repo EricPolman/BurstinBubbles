@@ -96,7 +96,7 @@ void SceneManager::Update(float fDeltaTime)
 		{
 			m_currentScene->m_bScenePlaying = true;
 			SoundManager::getInstance()->m_sounds["background_loading"]->stop();
-			SoundManager::getInstance()->Play("background_scene1");
+			SoundManager::getInstance()->PlayMusic("background_scene1");
 		}
 	}
 }
@@ -106,7 +106,7 @@ void SceneManager::LoadScene(std::string sFile)
 {
 	m_currentScene = new Scene();
 	SoundManager::getInstance()->m_sounds["background_scene1"]->stop();
-	SoundManager::getInstance()->Play("background_loading");
+	SoundManager::getInstance()->PlayMusic("background_loading");
 	m_fSceneRestartTimer = 0;
 	m_currentScene->m_bScenePlaying = false;
 }

@@ -53,6 +53,12 @@ void SoundManager::Play(std::string soundName, float volume, bool variativePitch
 }
 
 
+void SoundManager::PlayMusic(std::string soundName)
+{
+	m_sounds[soundName]->play();
+}
+
+
 void SoundManager::Add(std::string soundName, std::string filePath, bool loop)
 {
 	sf::SoundBuffer* buffer = new sf::SoundBuffer();

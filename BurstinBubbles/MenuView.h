@@ -1,5 +1,5 @@
 #pragma once
-#include "GUIButton.h"
+#include "GUIMuteButton.h"
 #include "TextureManager.h"
 
 class MenuView

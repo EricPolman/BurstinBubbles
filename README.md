@@ -7,6 +7,11 @@ The player would travel through time to learn about how bubbles are formed and h
 The company that sent the player wants to exploit a bubble happening in their time.
 Because all of this was way too much work for this assignment, I decided to make a highscore-based Shoot 'm Up in which you shoot the guards of the Future Thugs.
 
+##Instructions
+*	Start BurstinBubbles.exe
+*	Play the game
+*	If screen stays black, check if the Data-folder exists and has content.
+
 ##Controls
 *	Aiming - Mouse movement
 *	Shooting - Left Mouse Button

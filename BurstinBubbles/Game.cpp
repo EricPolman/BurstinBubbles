@@ -41,9 +41,18 @@ Game::Game(void)
 	m_textExit.move(SettingHelper::g_iWindowWidth / 2 - m_textExit.getGlobalBounds().width / 2, 
 					SettingHelper::g_iWindowHeight / 2 + 275 - m_textExit.getGlobalBounds().height / 2);
 	
+	GUIMuteButton* mute = new GUIMuteButton();
+	mute->setPosition(SettingHelper::g_iWindowWidth - 100, SettingHelper::g_iWindowHeight - 100);
+	menuView->Add(mute);
+	
 	menuView->LoadTexture(SettingHelper::g_sRootPath + "/Data/Sprites/loadingscreen.png", "loadingscreen");
 	m_beginImage.setTexture(*TextureManager::getInstance()->m_Textures["loadingscreen"]);
 	
+	menuView->LoadTexture(SettingHelper::g_sRootPath + "/Data/Sprites/mute/music_on.png", "music_on");
+	menuView->LoadTexture(SettingHelper::g_sRootPath + "/Data/Sprites/mute/music_off.png", "music_off");
+	menuView->LoadTexture(SettingHelper::g_sRootPath + "/Data/Sprites/mute/music_hover.png", "music_hover");
+	
+
 	menuView->LoadTexture(SettingHelper::g_sRootPath + "/Data/Sprites/instructions.png", "instructions");
 	m_instrImage.setTexture(*TextureManager::getInstance()->m_Textures["instructions"]);
 	m_instrImage.move(SettingHelper::g_iWindowWidth / 2 - m_instrImage.getTextureRect().width / 2,
@@ -96,7 +105,7 @@ void Game::Draw(sf::RenderWindow* window)
 				if(!(SoundManager::getInstance()->m_sounds["background_scene1"]->getStatus() == sf::Sound::Playing))
 				{
 					SoundManager::getInstance()->m_sounds["background_loading"]->stop();
-					SoundManager::getInstance()->Play("background_scene1");
+					SoundManager::getInstance()->PlayMusic("background_scene1");
 				}
 			}
 			else if(menuView->m_guiButtons[1]->m_bOldMouseClick && !menuView->m_guiButtons[1]->m_bMouseClick && menuView->m_guiButtons[1]->intersectsRect(sf::Mouse::getPosition()))
@@ -107,7 +116,23 @@ void Game::Draw(sf::RenderWindow* window)
 			{
 				window->close();
 			}
-		}
+			else if(menuView->m_guiButtons[3]->m_bOldMouseClick && !menuView->m_guiButtons[3]->m_bMouseClick && menuView->m_guiButtons[3]->intersectsRect(sf::Mouse::getPosition()))
+			{
+				bool mute = ((GUIMuteButton*)menuView->m_guiButtons[3])->mute;
+				if(mute)
+				{
+					((GUIMuteButton*)menuView->m_guiButtons[3])->mute = false;
+					SoundManager::getInstance()->m_sounds["background_loading"]->setVolume(100);
+					SoundManager::getInstance()->m_sounds["background_scene1"]->setVolume(100);
+				}
+				else
+				{
+					((GUIMuteButton*)menuView->m_guiButtons[3])->mute = true;
+					SoundManager::getInstance()->m_sounds["background_loading"]->setVolume(0);
+					SoundManager::getInstance()->m_sounds["background_scene1"]->setVolume(0);
+				}
+			}
+		}	
 		else
 		{
 			window->draw(m_instrImage);
@@ -129,7 +154,7 @@ void Game::Draw(sf::RenderWindow* window)
 					SettingHelper::g_iWindowHeight / 2 + 120 - m_textStartGame.getGlobalBounds().height / 2);
 
 			SoundManager::getInstance()->m_sounds["background_scene1"]->stop();
-			SoundManager::getInstance()->Play("background_loading");
+			SoundManager::getInstance()->PlayMusic("background_loading");
 		}
 	}	
 }

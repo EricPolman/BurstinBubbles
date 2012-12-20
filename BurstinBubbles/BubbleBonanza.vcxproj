@@ -91,6 +91,7 @@
     <ClInclude Include="GUIButton.h" />
     <ClInclude Include="GUIElement.h" />
     <ClInclude Include="GUIManager.h" />
+    <ClInclude Include="GUIMuteButton.h" />
     <ClInclude Include="MathHelper.h" />
     <ClInclude Include="Medipack.h" />
     <ClInclude Include="MenuView.h" />
@@ -115,6 +116,7 @@
     <ClCompile Include="GUIButton.cpp" />
     <ClCompile Include="GUIElement.cpp" />
     <ClCompile Include="GUIManager.cpp" />
+    <ClCompile Include="GUIMuteButton.cpp" />
     <ClCompile Include="MathHelper.cpp" />
     <ClCompile Include="Medipack.cpp" />
     <ClCompile Include="MenuView.cpp" />

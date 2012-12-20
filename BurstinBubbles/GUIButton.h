@@ -19,6 +19,6 @@ public:
 	bool m_bOldMouseHover;
 	bool m_bOldMouseClick;
 	bool intersectsRect(sf::Vector2i);
-private:
+protected:
 	sf::IntRect m_buttonRect;
 };
