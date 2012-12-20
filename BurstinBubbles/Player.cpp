@@ -120,9 +120,12 @@ void Player::Shoot(void)
 	bullet->m_direction = sf::Vector2f(std::cos(PI * (getRotation() - 90) / 180.0f), std::sin(PI * (getRotation() - 90) / 180.0f));
 	bullet->setPosition(getPosition() + bullet->m_direction * (float)(getTextureRect().width / 2));
 	bullet->m_owner = this;
-
+	bullet->m_direction.x += -0.03f + MathHelper::Random() * 0.06f;
+	bullet->m_direction.y += -0.03f + MathHelper::Random() * 0.06f;
+	move(-bullet->m_direction * 3.f);
 	SoundManager::getInstance()->Play("shoot", 80.f, true);
 	m_bullets.push_back(bullet);
+
 }
 
 
